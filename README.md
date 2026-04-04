@@ -1,7 +1,7 @@
 Informatii generale
-    Categorie: Educational
-    Judetul: Braila
-    Surse: [GitHub - UrsacheMihai/bitstride_studio: Panou Administrare Studio](https://github.com/UrsacheMihai/bitstride_studio.git)
+- Categorie: Educational
+- Judetul: Braila
+- Surse: [GitHub - UrsacheMihai/bitstride_studio: Panou Administrare Studio](https://github.com/UrsacheMihai/bitstride_studio.git)
 
 Descriere
 
@@ -53,7 +53,7 @@ Platforme Suportate și Mediu de Lucru:
 
 Realizatori
 
-Mihai Ursache
+**Mihai Ursache**
  - Scoala: Colegiul National "Nicolae Iorga"
  - Clasa: 10-a
  - Judet: Braila

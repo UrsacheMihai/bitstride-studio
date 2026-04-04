@@ -1,6 +1,7 @@
 # Miscellaneous
 *.class
 *.log
+*.txt
 *.pyc
 *.swp
 .DS_Store
@@ -44,7 +45,9 @@ app.*.map.json
 
 # Security & Environment Variables
 .env
+**/*.env
 *.env
+**/*.env.*
 
 # Firebase / Google Services
 android/app/google-services.json
@@ -56,3 +59,10 @@ lib/firebase_options.dart
 key.properties
 **/*.jks
 **/*.keystore
+
+# Build Reports and Logs
+**/build_log.txt
+**/gradle_error.txt
+**/gradle_summary.txt
+**/analyze_*.txt
+**/studio_signing.txt
