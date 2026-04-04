@@ -1,0 +1,157 @@
+{
+  "appTitle": "BitStride Studio",
+  "loading": "Cargando...",
+  "error": "Error",
+  "ok": "Aceptar",
+  "cancel": "Cancelar",
+  "delete": "Eliminar",
+  "edit": "Editar",
+  "editChallenge": "Editar desafío",
+  "newChallenge": "Nuevo desafío",
+  "title": "Título",
+  "language": "Idioma",
+  "difficulty": "Dificultad",
+  "description": "Descripción",
+  "testRun": "Ejecución de prueba",
+  "publish": "Publicar",
+  "testCases": "Casos de prueba",
+  "add": "Añadir",
+  "addProvidedFile": "Añadir archivo",
+  "create": "Crear",
+  "myChallenges": "Mis desafíos",
+  "reviewQueue": "Cola de revisión",
+  "courseManager": "Gestor de cursos",
+  "syncEngine": "Motor de sincronización",
+  "easy": "Fácil",
+  "medium": "Medio",
+  "hard": "Difícil",
+  "providedFiles": "Archivos Proporcionados",
+  "allLevels": "Todos los niveles",
+  "dataSync": "Data Sync",
+  "syncDescription": "Synchronize your curriculum data between the live Firestore database and your local bitstride-content repository.",
+  "exportToRepo": "Export to Repo",
+  "exportDescription": "Download the current live database state as a .zip of JSON files, directly matching your git repo structure.",
+  "downloadZip": "Download .zip",
+  "importFromRepo": "Import from Repo",
+  "importDescription": "Upload a .zip or .json from your bitstride-content repo. This will OVERWRITE existing database entries.",
+  "uploadJsonZip": "Upload JSON/ZIP",
+  "courseCurriculum": "Course Curriculum",
+  "addCourse": "Add Course",
+  "editCourseInfo": "Edit Course Info",
+  "addLesson": "Add Lesson",
+  "editCourse": "Edit Course",
+  "lessonTitle": "Lesson Title",
+  "initialCodeTemplate": "Initial Code Template (Optional)",
+  "save": "Save",
+  "lessonsCount": "{count} lessons",
+  "@lessonsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "exportSuccess": "Curriculum exported successfully!",
+  "exportFailed": "Export failed: {error}",
+  "@exportFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "importSuccess": "Imported {count} items successfully!",
+  "@importSuccess": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importFailed": "Import failed: {error}",
+  "@importFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "noChallenges": "You haven't published any challenges yet.",
+  "createFirst": "Create your first",
+  "approvedTitle": "Approved",
+  "pendingTitle": "Pending",
+  "deleteChallengeTitle": "Delete challenge?",
+  "cannotBeUndone": "This cannot be undone.",
+  "pendingReview": " Pending Review ({count})",
+  "@pendingReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "approvedReview": " Approved ({count})",
+  "@approvedReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noChallengesSubmitted": "No challenges submitted yet.",
+  "byCreator": "by {creator}  {difficulty}",
+  "@byCreator": {
+    "placeholders": {
+      "creator": {
+        "type": "String"
+      },
+      "difficulty": {
+        "type": "String"
+      }
+    }
+  },
+  "testCasesFiles": "{tests} test case(s)  {files} file(s)",
+  "@testCasesFiles": {
+    "placeholders": {
+      "tests": {
+        "type": "int"
+      },
+      "files": {
+        "type": "int"
+      }
+    }
+  },
+  "approveBtn": "Approve",
+  "revokeBtn": "Revoke",
+  "copyJsonBtn": "Copy JSON",
+  "copiedJson": "Copied JSON to clipboard!",
+  "titleRequired": "Title is required",
+  "publishedAwaiting": "Published! Awaiting approval.",
+  "starterCode": "Starter Code",
+  "testCaseTitle": "Test {index}",
+  "@testCaseTitle": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "inputStdin": "Input (stdin)",
+  "expectedOutput": "Expected Output",
+  "outputFileOpt": "Output File (optional, e.g. output.out)",
+  "hiddenTest": "Hidden test",
+  "gotOutput": "Got: {output}",
+  "@gotOutput": {
+    "placeholders": {
+      "output": {
+        "type": "String"
+      }
+    }
+  },
+  "fileName": "File Name (e.g. data.txt)",
+  "fileContent": "File Content",
+  "studioAdmin": "Studio Admin",
+  "mineTab": "Mine",
+  "coursesTab": "Courses",
+  "reviewTab": "Review"
+}
