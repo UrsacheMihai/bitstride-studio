@@ -47,7 +47,7 @@ app.*.map.json
 .env
 **/*.env
 *.env
-**/*.env.*
+local.properties
 
 # Firebase / Google Services
 android/app/google-services.json

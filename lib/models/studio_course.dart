@@ -1,11 +1,8 @@
 class StudioContentBlock {
-  String type;    // 'heading' | 'text' | 'code' | 'image'
+  String type;    
   String content;
-
   StudioContentBlock({this.type = 'text', this.content = ''});
-
   Map<String, dynamic> toJson() => {'type': type, 'content': content};
-
   factory StudioContentBlock.fromJson(Map<String, dynamic> json) {
     return StudioContentBlock(
       type: json['type'] ?? 'text',
@@ -20,7 +17,6 @@ class StudioCourse {
   String description;
   String language;
   List<StudioLesson> lessons;
-
   StudioCourse({
     required this.id,
     required this.title,
@@ -28,7 +24,6 @@ class StudioCourse {
     required this.language,
     this.lessons = const [],
   });
-
   Map<String, dynamic> toJson() => {
         'id': id,
         'title': title,
@@ -36,7 +31,6 @@ class StudioCourse {
         'language': language,
         'lessons': lessons.map((l) => l.toJson()).toList(),
       };
-
   factory StudioCourse.fromJson(String id, Map<String, dynamic> json) {
     return StudioCourse(
       id: id,
@@ -54,8 +48,10 @@ class StudioCourse {
 class StudioLesson {
   String id;
   String title;
+  String type; 
   String description;
   String initialCode;
+  String solutionCode;
   String successMascot;
   String failMascot;
   List<StudioLessonTest> tests;
@@ -65,10 +61,12 @@ class StudioLesson {
   StudioLesson({
     required this.id,
     required this.title,
+    this.type = 'code',
     required this.description,
     required this.initialCode,
-    this.successMascot = 'brain-celebrate.gif',
-    this.failMascot = 'brain-crying.gif',
+    this.solutionCode = '',
+    this.successMascot = 'thumbs-up-4b8ec7e7-360.webm',
+    this.failMascot = 'thinking-hard-e507f346-360.webm',
     this.tests = const [],
     this.files = const [],
     this.contentBlocks = const [],
@@ -78,8 +76,9 @@ class StudioLesson {
         'id': id,
         'title': title,
         'description': description,
-        'type': 'code',
+        'type': type,
         'initial_code': initialCode,
+        'solution_code': solutionCode,
         'success_mascot': successMascot,
         'fail_mascot': failMascot,
         'tests': tests.map((t) => t.toJson()).toList(),
@@ -91,10 +90,12 @@ class StudioLesson {
     return StudioLesson(
       id: json['id'] ?? '',
       title: json['title'] ?? '',
+      type: json['type'] ?? 'code',
       description: json['description'] ?? '',
       initialCode: json['initial_code'] ?? '',
-      successMascot: json['success_mascot'] ?? 'brain-celebrate.gif',
-      failMascot: json['fail_mascot'] ?? 'brain-crying.gif',
+      solutionCode: json['solution_code'] ?? '',
+      successMascot: json['success_mascot'] ?? 'thumbs-up-4b8ec7e7-360.webm',
+      failMascot: json['fail_mascot'] ?? 'thinking-hard-e507f346-360.webm',
       tests: (json['tests'] as List<dynamic>?)
               ?.map((t) => StudioLessonTest.fromJson(t))
               .toList() ??
@@ -115,19 +116,16 @@ class StudioLessonTest {
   String input;
   String expectedOutput;
   bool isHidden;
-
   StudioLessonTest({
     required this.input,
     required this.expectedOutput,
     this.isHidden = false,
   });
-
   Map<String, dynamic> toJson() => {
         'input': input,
         'expected_output': expectedOutput,
         'is_hidden': isHidden,
       };
-
   factory StudioLessonTest.fromJson(Map<String, dynamic> json) {
     return StudioLessonTest(
       input: json['input'] ?? '',
@@ -140,17 +138,14 @@ class StudioLessonTest {
 class StudioLessonFile {
   String name;
   String content;
-
   StudioLessonFile({
     required this.name,
     required this.content,
   });
-
   Map<String, dynamic> toJson() => {
         'name': name,
         'content': content,
       };
-
   factory StudioLessonFile.fromJson(Map<String, dynamic> json) {
     return StudioLessonFile(
       name: json['name'] ?? '',

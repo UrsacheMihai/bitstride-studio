@@ -12,9 +12,6 @@ Concret, aceasta îi permite cadrului didactic:
 - să simuleze ad-hoc teste "Mock IO", scriind la fel ca un utilizator cod pentru a verifica stabilitatea problemei pe un mediu izolat de compilație.
 - să arhiveze capitole întregi exportându-le local sub formă fizică (`.zip`) pentru funcționalitatea de integrare static-delivery.
 - să editeze, șteargă sau sincronizeze cursuri active utilizând direct cloud-ul Firebase (Force-Push pe baza rolurilor de acces RBAC).
- 
-**Important!**
-**Proiectul a fost inceput in data de 15 Martie 2026 si a fost finalizat in data de 4 Aprilie 2026, dar toate commiturile au fost realizate in data de 4 Aprilie 2026, deoarace s-a lucrat in mediu local, și doar am creat commiturile nu și uploadat pe github, dând eronarea datei uploadului.**
 
 Funcționalități Principale
 

@@ -1,26 +1,20 @@
-import 'dart:convert';
+﻿import 'dart:convert';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:translator/translator.dart';
-
 class TranslationService {
   final GoogleTranslator _translator = GoogleTranslator();
   SharedPreferences? _prefs;
-
   Future<void> _initPrefs() async {
     _prefs ??= await SharedPreferences.getInstance();
   }
-
   Future<String> translateText(String text, String targetLang) async {
     if (targetLang == 'en' || text.trim().isEmpty) return text;
-
     await _initPrefs();
     final cacheKey = 'trans_${targetLang}_${text.hashCode}';
-
     final cached = _prefs!.getString(cacheKey);
     if (cached != null && cached.isNotEmpty) return cached;
-
     String result = text;
     try {
       if (kIsWeb) {
@@ -32,13 +26,11 @@ class TranslationService {
     } catch (_) {
       return text;
     }
-
     if (result.isNotEmpty) {
       await _prefs!.setString(cacheKey, result);
     }
     return result;
   }
-
   Future<String> _translateViaProxy(String text, String targetLang) async {
     final langMap = {
       'ro': 'ro-RO',
@@ -60,3 +52,4 @@ class TranslationService {
     return text;
   }
 }
+
