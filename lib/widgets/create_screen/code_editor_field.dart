@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 class CodeEditorField extends StatelessWidget {
   final TextEditingController controller;
   final String language;
-
   const CodeEditorField({super.key, required this.controller, required this.language});
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,6 +33,7 @@ class CodeEditorField extends StatelessWidget {
           controller: controller,
           maxLines: null,
           expands: true,
+          textAlignVertical: TextAlignVertical.top,
           style: const TextStyle(
             fontFamily: 'monospace',
             fontSize: 13,
@@ -51,3 +49,4 @@ class CodeEditorField extends StatelessWidget {
     );
   }
 }
+

@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import '../../models/studio_challenge.dart';
 import '../../services/studio_judge.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import 'package:bitstride_studio/l10n/app_localizations.dart';
 class TestCaseCard extends StatefulWidget {
   final int index;
   final StudioTestCase test;
   final TestRunResult? result;
   final VoidCallback? onRemove;
-
   const TestCaseCard({
     super.key,
     required this.index,
@@ -16,32 +14,26 @@ class TestCaseCard extends StatefulWidget {
     this.result,
     this.onRemove,
   });
-
   @override
   State<TestCaseCard> createState() => _TestCaseCardState();
 }
-
 class _TestCaseCardState extends State<TestCaseCard> {
-  late String _inputMode;  // 'stdin' | 'file'
-  late String _outputMode; // 'stdout' | 'file'
-
+  late String _inputMode;  
+  late String _outputMode; 
   @override
   void initState() {
     super.initState();
     _inputMode = widget.test.inputFile != null && widget.test.inputFile!.isNotEmpty ? 'file' : 'stdin';
     _outputMode = widget.test.outputFile != null && widget.test.outputFile!.isNotEmpty ? 'file' : 'stdout';
   }
-
   @override
   Widget build(BuildContext context) {
     Color? borderColor;
     if (widget.result != null) {
       borderColor = widget.result!.passed ? const Color(0xFF4CAF50) : Colors.red;
     }
-
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-
     return Card(
       margin: const EdgeInsets.only(bottom: 14),
       shape: RoundedRectangleBorder(
@@ -57,7 +49,6 @@ class _TestCaseCardState extends State<TestCaseCard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ── Header row ──
             Row(
               children: [
                 Container(
@@ -93,10 +84,6 @@ class _TestCaseCardState extends State<TestCaseCard> {
               ],
             ),
             const SizedBox(height: 12),
-
-            // ═══════════════════════════════════════
-            // ── INPUT SECTION ──
-            // ═══════════════════════════════════════
             _SectionHeader(
               icon: Icons.input,
               title: 'Input',
@@ -117,7 +104,6 @@ class _TestCaseCardState extends State<TestCaseCard> {
               ),
             ),
             const SizedBox(height: 6),
-
             if (_inputMode == 'stdin')
               _MonoField(
                 label: 'stdin data',
@@ -151,12 +137,7 @@ class _TestCaseCardState extends State<TestCaseCard> {
                 ],
               ),
             ],
-
             const SizedBox(height: 14),
-
-            // ═══════════════════════════════════════
-            // ── OUTPUT SECTION ──
-            // ═══════════════════════════════════════
             _SectionHeader(
               icon: Icons.output,
               title: 'Expected Output',
@@ -177,7 +158,6 @@ class _TestCaseCardState extends State<TestCaseCard> {
               ),
             ),
             const SizedBox(height: 6),
-
             if (_outputMode == 'stdout')
               _MonoField(
                 label: 'Expected stdout',
@@ -211,10 +191,7 @@ class _TestCaseCardState extends State<TestCaseCard> {
                 ],
               ),
             ],
-
             const SizedBox(height: 10),
-
-            // ── Options row ──
             Row(
               children: [
                 Checkbox(
@@ -240,8 +217,6 @@ class _TestCaseCardState extends State<TestCaseCard> {
                 ],
               ],
             ),
-
-            // ── Error feedback ──
             if (widget.result != null && !widget.result!.passed && widget.result!.actualOutput.isNotEmpty) ...[
               const Divider(),
               Container(
@@ -276,16 +251,11 @@ class _TestCaseCardState extends State<TestCaseCard> {
     );
   }
 }
-
-// ─── Section Header ──────────────────────────────────────────────────────────
-
 class _SectionHeader extends StatelessWidget {
   final IconData icon;
   final String title;
   final Widget trailing;
-
   const _SectionHeader({required this.icon, required this.title, required this.trailing});
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -307,22 +277,17 @@ class _SectionHeader extends StatelessWidget {
     );
   }
 }
-
-// ─── Mode Toggle (stdin/file) ────────────────────────────────────────────────
-
 class _ModeToggle extends StatelessWidget {
   final String value;
   final List<String> options;
   final List<String> labels;
   final ValueChanged<String> onChanged;
-
   const _ModeToggle({
     required this.value,
     required this.options,
     required this.labels,
     required this.onChanged,
   });
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -367,16 +332,12 @@ class _ModeToggle extends StatelessWidget {
     );
   }
 }
-
-// ─── Monospaced Text Field ───────────────────────────────────────────────────
-
 class _MonoField extends StatelessWidget {
   final String label;
   final String value;
   final ValueChanged<String> onChanged;
   final String? hintText;
   final int maxLines;
-
   const _MonoField({
     required this.label,
     required this.value,
@@ -384,7 +345,6 @@ class _MonoField extends StatelessWidget {
     this.hintText,
     this.maxLines = 2,
   });
-
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -404,14 +364,10 @@ class _MonoField extends StatelessWidget {
     );
   }
 }
-
-// ─── I/O indicator tag ───────────────────────────────────────────────────────
-
 class _IoTag extends StatelessWidget {
   final String label;
   final Color color;
   const _IoTag(this.label, this.color);
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -428,3 +384,4 @@ class _IoTag extends StatelessWidget {
     );
   }
 }
+
