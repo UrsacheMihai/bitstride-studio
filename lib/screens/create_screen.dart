@@ -17,8 +17,8 @@ class CreateScreen extends StatefulWidget {
 class _CreateScreenState extends State<CreateScreen> with SingleTickerProviderStateMixin {
   final _titleCtrl = TextEditingController();
   final _descCtrl = TextEditingController();
-  final _codeCppCtrl = TextEditingController();
-  final _codePythonCtrl = TextEditingController();
+  final _solCppCtrl = TextEditingController();
+  final _solPythonCtrl = TextEditingController();
   final _categoryCtrl = TextEditingController();
   final _methodCtrl = TextEditingController();
   String _editorLanguage = 'cpp';
@@ -37,8 +37,8 @@ class _CreateScreenState extends State<CreateScreen> with SingleTickerProviderSt
     if (e != null) {
       _titleCtrl.text = e.title;
       _descCtrl.text = e.description;
-      _codeCppCtrl.text = e.initialCodeCpp ?? '';
-      _codePythonCtrl.text = e.initialCodePython ?? '';
+      _solCppCtrl.text = e.solutionCodeCpp ?? '';
+      _solPythonCtrl.text = e.solutionCodePython ?? '';
       _categoryCtrl.text = e.category;
       _methodCtrl.text = e.method;
       _difficulty = e.difficulty;
@@ -52,8 +52,8 @@ class _CreateScreenState extends State<CreateScreen> with SingleTickerProviderSt
     _tabController.dispose();
     _titleCtrl.dispose();
     _descCtrl.dispose();
-    _codeCppCtrl.dispose();
-    _codePythonCtrl.dispose();
+    _solCppCtrl.dispose();
+    _solPythonCtrl.dispose();
     _categoryCtrl.dispose();
     _methodCtrl.dispose();
     super.dispose();
@@ -61,7 +61,7 @@ class _CreateScreenState extends State<CreateScreen> with SingleTickerProviderSt
   Future<void> _runTests() async {
     setState(() => _running = true);
     final judge = StudioJudge();
-    final sourceCode = _editorLanguage == 'cpp' ? _codeCppCtrl.text : _codePythonCtrl.text;
+    final sourceCode = _editorLanguage == 'cpp' ? _solCppCtrl.text : _solPythonCtrl.text;
     final res = await judge.runAll(sourceCode, _editorLanguage, _tests, _files);
     setState(() {
       _results = List<TestRunResult?>.from(res, growable: true);
@@ -99,8 +99,8 @@ class _CreateScreenState extends State<CreateScreen> with SingleTickerProviderSt
       category: _categoryCtrl.text.trim(),
       method: _methodCtrl.text.trim(),
       description: _descCtrl.text.trim(),
-      initialCodeCpp: _codeCppCtrl.text,
-      initialCodePython: _codePythonCtrl.text,
+      solutionCodeCpp: _solCppCtrl.text,
+      solutionCodePython: _solPythonCtrl.text,
       tests: _tests,
       files: _files,
       creatorUid: widget.existing?.creatorUid ?? state.user!.uid,
@@ -345,9 +345,9 @@ class _CreateScreenState extends State<CreateScreen> with SingleTickerProviderSt
                 runSpacing: 6,
                 children: [
                   _PreviewTag(_difficulty, _diffColor(_difficulty)),
-                  if (_codeCppCtrl.text.trim().isNotEmpty)
+                  if (_solCppCtrl.text.trim().isNotEmpty)
                     _PreviewTag('C++', const Color(0xFF00599C)),
-                  if (_codePythonCtrl.text.trim().isNotEmpty)
+                  if (_solPythonCtrl.text.trim().isNotEmpty)
                     _PreviewTag('Python', const Color(0xFF3776AB)),
                   if (_categoryCtrl.text.isNotEmpty)
                     _PreviewTag(_categoryCtrl.text, StudioTheme.accentPurple),
@@ -378,17 +378,17 @@ class _CreateScreenState extends State<CreateScreen> with SingleTickerProviderSt
     return ListView(
       padding: const EdgeInsets.all(20),
       children: [
-        _SectionHeader(icon: Icons.code_rounded, label: l.starterCode, isDark: isDark),
+        _SectionHeader(icon: Icons.lock_rounded, label: 'Solution Code', isDark: isDark),
         const SizedBox(height: 6),
-        _HintText('This code is used internally for validation. Users in the Core app will NOT see it — they write from scratch.'),
+        _HintText('🔒 This code is private — used ONLY for validation. Users in the Core app will NOT see it.'),
         const SizedBox(height: 16),
         Row(
           children: [
             Expanded(
               child: SegmentedButton<String>(
                 segments: const [
-                  ButtonSegment(value: 'cpp', label: Text('C++ Starter Flow')),
-                  ButtonSegment(value: 'python', label: Text('Python Starter Flow')),
+                  ButtonSegment(value: 'cpp', label: Text('C++ Solution')),
+                  ButtonSegment(value: 'python', label: Text('Python Solution')),
                 ],
                 selected: {_editorLanguage},
                 onSelectionChanged: (Set<String> newSelection) {
@@ -405,7 +405,7 @@ class _CreateScreenState extends State<CreateScreen> with SingleTickerProviderSt
         const SizedBox(height: 12),
         CodeEditorField(
           key: ValueKey(_editorLanguage),
-          controller: _editorLanguage == 'cpp' ? _codeCppCtrl : _codePythonCtrl,
+          controller: _editorLanguage == 'cpp' ? _solCppCtrl : _solPythonCtrl,
           language: _editorLanguage,
         ),
         const SizedBox(height: 28),

@@ -5,8 +5,8 @@ class StudioChallenge {
   final String category;
   final String method;
   final String description;
-  final String? initialCodeCpp;
-  final String? initialCodePython;
+  final String? solutionCodeCpp;
+  final String? solutionCodePython;
   final List<StudioTestCase> tests;
   final List<StudioFile> files;
   final String creatorUid;
@@ -20,8 +20,8 @@ class StudioChallenge {
     this.category = '',
     this.method = '',
     required this.description,
-    this.initialCodeCpp,
-    this.initialCodePython,
+    this.solutionCodeCpp,
+    this.solutionCodePython,
     required this.tests,
     required this.files,
     required this.creatorUid,
@@ -29,6 +29,8 @@ class StudioChallenge {
     required this.createdAt,
     this.approved = false,
   });
+
+
   Map<String, dynamic> toFirestore() {
     return {
       'id': id,
@@ -37,8 +39,8 @@ class StudioChallenge {
       'category': category,
       'method': method,
       'description': description,
-      'initial_code_cpp': initialCodeCpp,
-      'initial_code_python': initialCodePython,
+      'solution_code_cpp': solutionCodeCpp,
+      'solution_code_python': solutionCodePython,
       'tests': tests.map((t) => t.toMap()).toList(),
       'files': files.map((f) => f.toMap()).toList(),
       'creator_uid': creatorUid,
@@ -47,9 +49,11 @@ class StudioChallenge {
       'approved': approved,
     };
   }
+
   factory StudioChallenge.fromFirestore(Map<String, dynamic> data) {
-    String? cppCode = data['initial_code_cpp'];
-    String? pythonCode = data['initial_code_python'];
+    String? cppCode = data['solution_code_cpp'] ?? data['initial_code_cpp'];
+    String? pythonCode = data['solution_code_python'] ?? data['initial_code_python'];
+
     if (data.containsKey('language') && data.containsKey('initial_code')) {
       if (data['language'] == 'cpp') {
         cppCode ??= data['initial_code'];
@@ -65,8 +69,8 @@ class StudioChallenge {
       category: data['category'] ?? '',
       method: data['method'] ?? '',
       description: data['description'] ?? '',
-      initialCodeCpp: cppCode,
-      initialCodePython: pythonCode,
+      solutionCodeCpp: cppCode,
+      solutionCodePython: pythonCode,
       tests: (data['tests'] as List? ?? [])
           .map((t) => StudioTestCase.fromMap(t))
           .toList(),
@@ -80,8 +84,8 @@ class StudioChallenge {
     );
   }
 
-  bool get hasCpp => initialCodeCpp != null && initialCodeCpp!.isNotEmpty;
-  bool get hasPython => initialCodePython != null && initialCodePython!.isNotEmpty;
+  bool get hasCpp => solutionCodeCpp != null && solutionCodeCpp!.isNotEmpty;
+  bool get hasPython => solutionCodePython != null && solutionCodePython!.isNotEmpty;
 }
 class StudioTestCase {
   String input;
@@ -119,4 +123,3 @@ class StudioFile {
   factory StudioFile.fromMap(Map<String, dynamic> m) =>
       StudioFile(name: m['name'] ?? '', content: m['content'] ?? '');
 }
-

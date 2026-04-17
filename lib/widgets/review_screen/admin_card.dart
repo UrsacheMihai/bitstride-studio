@@ -59,22 +59,22 @@ class AdminCard extends StatelessWidget {
                     )),
                 const SizedBox(height: 10),
                 if (challenge.hasCpp) ...[
-                  Text('C++', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.blue[300])),
+                  Text('C++ Solution', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.blue[300])),
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(color: const Color(0xFF1E1E2E), borderRadius: BorderRadius.circular(12), border: Border.all(color: Colors.white.withOpacity(0.06))),
-                    child: Text(challenge.initialCodeCpp!.trim(), style: const TextStyle(fontFamily: 'monospace', fontSize: 12, color: Colors.white70)),
+                    child: Text(challenge.solutionCodeCpp!.trim(), style: const TextStyle(fontFamily: 'monospace', fontSize: 12, color: Colors.white70)),
                   ),
                   const SizedBox(height: 10),
                 ],
                 if (challenge.hasPython) ...[
-                  Text('Python', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.yellow[300])),
+                  Text('Python Solution', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.yellow[300])),
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(color: const Color(0xFF1E1E2E), borderRadius: BorderRadius.circular(12), border: Border.all(color: Colors.white.withOpacity(0.06))),
-                    child: Text(challenge.initialCodePython!.trim(), style: const TextStyle(fontFamily: 'monospace', fontSize: 12, color: Colors.white70)),
+                    child: Text(challenge.solutionCodePython!.trim(), style: const TextStyle(fontFamily: 'monospace', fontSize: 12, color: Colors.white70)),
                   ),
                 ],
                 const SizedBox(height: 10),
@@ -141,8 +141,7 @@ class AdminCard extends StatelessWidget {
                             if (t.outputFile != null) "output_file": t.outputFile,
                             if (t.isHidden) "hidden": true,
                           }).toList(),
-                          if (challenge.hasCpp) "initial_code_cpp": challenge.initialCodeCpp,
-                          if (challenge.hasPython) "initial_code_python": challenge.initialCodePython,
+
                           "files": challenge.files.map((f) => {
                             "name": f.name,
                             "content": f.content,

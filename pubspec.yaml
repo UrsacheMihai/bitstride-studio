@@ -2,7 +2,7 @@ name: bitstride_studio
 description: "BitStride Studio - Create and manage coding challenges."
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 2.0.0
 
 environment:
   sdk: ^3.5.4
