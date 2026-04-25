@@ -1,0 +1,196 @@
+{
+  "appTitle": "BitStride Studio",
+  "loading": "Chargement...",
+  "error": "Erreur",
+  "ok": "OK",
+  "cancel": "Annuler",
+  "delete": "Supprimer",
+  "edit": "Modifier",
+  "editChallenge": "Modifier le Défi",
+  "newChallenge": "Nouveau Défi",
+  "title": "Titre",
+  "language": "Langue",
+  "difficulty": "Difficulté",
+  "description": "Description",
+  "testRun": "Exécution Test",
+  "publish": "Publier",
+  "testCases": "Cas de Test",
+  "add": "Ajouter",
+  "addProvidedFile": "Ajouter Fichier Fourni",
+  "create": "Créer",
+  "myChallenges": "Mes Défis",
+  "reviewQueue": "File de Révision",
+  "courseManager": "Gestionnaire de Cours",
+  "syncEngine": "Moteur de Synchronisation",
+  "easy": "Facile",
+  "medium": "Moyen",
+  "hard": "Difficile",
+  "providedFiles": "Fichiers Fournis",
+  "allLevels": "Tous les niveaux",
+  "dataSync": "Synchronisation",
+  "syncDescription": "Synchronisez vos données de programme entre la base de données Firestore en direct et votre dépôt bitstride-content local.",
+  "exportToRepo": "Exporter vers le dépôt",
+  "exportDescription": "Téléchargez l'état actuel de la base de données en direct sous forme de .zip de fichiers JSON, correspondant directement à la structure de votre dépôt git.",
+  "downloadZip": "Télécharger .zip",
+  "importFromRepo": "Importer depuis le dépôt",
+  "importDescription": "Téléchargez un .zip ou .json depuis votre dépôt bitstride-content. Cela ÉCRASERA les entrées existantes de la base de données.",
+  "uploadJsonZip": "Télécharger JSON/ZIP",
+  "courseCurriculum": "Programme du Cours",
+  "addCourse": "Ajouter un Cours",
+  "editCourseInfo": "Modifier les Infos du Cours",
+  "addLesson": "Ajouter une Leçon",
+  "editCourse": "Modifier le Cours",
+  "lessonTitle": "Titre de la Leçon",
+  "initialCodeTemplate": "Modèle de Code Initial (Optionnel)",
+  "save": "Enregistrer",
+  "lessonsCount": "{count} leçons",
+  "@lessonsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "exportSuccess": "Programme exporté avec succès!",
+  "exportFailed": "Échec de l'exportation: {error}",
+  "@exportFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "importSuccess": "{count} éléments importés avec succès!",
+  "@importSuccess": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importFailed": "Échec de l'importation: {error}",
+  "@importFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "noChallenges": "Vous n'avez encore publié aucun défi.",
+  "createFirst": "Créez votre premier",
+  "approvedTitle": "Approuvé",
+  "pendingTitle": "En Attente",
+  "deleteChallengeTitle": "Supprimer le défi?",
+  "cannotBeUndone": "Cette action est irréversible.",
+  "pendingReview": " En Attente de Révision ({count})",
+  "@pendingReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "approvedReview": " Approuvés ({count})",
+  "@approvedReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noChallengesSubmitted": "Aucun défi soumis pour le moment.",
+  "byCreator": "par {creator}  {difficulty}",
+  "@byCreator": {
+    "placeholders": {
+      "creator": {
+        "type": "String"
+      },
+      "difficulty": {
+        "type": "String"
+      }
+    }
+  },
+  "testCasesFiles": "{tests} cas de test  {files} fichier(s)",
+  "@testCasesFiles": {
+    "placeholders": {
+      "tests": {
+        "type": "int"
+      },
+      "files": {
+        "type": "int"
+      }
+    }
+  },
+  "approveBtn": "Approuver",
+  "revokeBtn": "Révoquer",
+  "copyJsonBtn": "Copier JSON",
+  "copiedJson": "JSON copié dans le presse-papiers!",
+  "titleRequired": "Le titre est requis",
+  "publishedAwaiting": "Publié! En attente d'approbation.",
+  "starterCode": "Code de Départ",
+  "testCaseTitle": "Test {index}",
+  "@testCaseTitle": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "inputStdin": "Entrée (stdin)",
+  "expectedOutput": "Sortie Attendue",
+  "outputFileOpt": "Fichier de Sortie (optionnel, ex. output.out)",
+  "hiddenTest": "Test caché",
+  "gotOutput": "Obtenu: {output}",
+  "@gotOutput": {
+    "placeholders": {
+      "output": {
+        "type": "String"
+      }
+    }
+  },
+  "fileName": "Nom du Fichier (ex. data.txt)",
+  "fileContent": "Contenu du Fichier",
+  "studioAdmin": "Administration Studio",
+  "mineTab": "À Moi",
+  "coursesTab": "Cours",
+  "reviewTab": "Révision",
+  "lesson": "Leçon",
+  "confirmDelete": "Confirmer la suppression",
+  "addContentBlock": "Ajouter un bloc de contenu",
+  "blockHeading": "En-tête",
+  "blockText": "Texte",
+  "blockCode": "Code",
+  "blockImageURL": "URL de l'image",
+  "privateCodeHint": "🔒 Ce code est privé — utilisé UNIQUEMENT pour la validation. Les utilisateurs de l'application Core NE le verront PAS.",
+  "cppSolution": "Solution C++",
+  "pythonSolution": "Solution Python",
+  "deleteConfirmTitle": "Supprimer?",
+  "editNode": "Modifier le nœud {id}",
+  "@editNode": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "highlightGlow": "Surligner (Éclat)",
+  "blockQuiz": "Quiz",
+  "quizQuestion": "Question du Quiz",
+  "multipleChoice": "Choix Multiple",
+  "enterQuestionText": "Entrez le texte de la question...",
+  "optionsSelectCorrect": "Options (Sélectionnez la bonne réponse) :",
+  "optionLabel": "Option {index}",
+  "@optionLabel": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "enterOptionText": "Entrez le texte de l'option...",
+  "removeOption": "Supprimer l'option",
+  "addOption": "Ajouter une Option",
+  "quizExplanation": "Explication",
+  "quizExplanationHint": "Entrez l'explication pour les mauvaises réponses...",
+  "quizOptionExplanationHint": "Explication si incorrecte (chaque peut différer)..."
+}

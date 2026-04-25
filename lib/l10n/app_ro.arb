@@ -1,0 +1,196 @@
+{
+  "appTitle": "BitStride Studio",
+  "loading": "Se încarcă...",
+  "error": "Eroare",
+  "ok": "OK",
+  "cancel": "Anulare",
+  "delete": "Șterge",
+  "edit": "Editează",
+  "editChallenge": "Editează Provocarea",
+  "newChallenge": "Provocare Nouă",
+  "title": "Titlu",
+  "language": "Limbă",
+  "difficulty": "Dificultate",
+  "description": "Descriere",
+  "testRun": "Rulare de Test",
+  "publish": "Publică",
+  "testCases": "Cazuri de Test",
+  "add": "Adaugă",
+  "addProvidedFile": "Adaugă Fișier Oferit",
+  "create": "Creează",
+  "myChallenges": "Provocările Mele",
+  "reviewQueue": "Coadă de Recenzii",
+  "courseManager": "Manager Cursuri",
+  "syncEngine": "Motor de Sincronizare",
+  "easy": "Ușor",
+  "medium": "Mediu",
+  "hard": "Greu",
+  "providedFiles": "Fișiere Oferite",
+  "allLevels": "Toate Nivelurile",
+  "dataSync": "Sincronizare Date",
+  "syncDescription": "Sincronizează datele curriculare între baza de date live Firestore și depozitul tău local bitstride-content.",
+  "exportToRepo": "Exportă în Depozit",
+  "exportDescription": "Descarcă starea actuală a bazei de date live sub formă de arhivă .zip cu fișiere JSON, care se potrivește direct cu structura ta de depozit git.",
+  "downloadZip": "Descarcă .zip",
+  "importFromRepo": "Importă din Depozit",
+  "importDescription": "Încarcă un .zip sau .json din depozitul tău bitstride-content. Acest lucru va SUPRASCRIE intrările existente din baza de date.",
+  "uploadJsonZip": "Încarcă JSON/ZIP",
+  "courseCurriculum": "Curriculum Curs",
+  "addCourse": "Adaugă Curs",
+  "editCourseInfo": "Editează Informațiile Cursului",
+  "addLesson": "Adaugă Lecție",
+  "editCourse": "Editează Curs",
+  "lessonTitle": "Titlul Lecției",
+  "initialCodeTemplate": "Șablon de Cod Inițial (Opțional)",
+  "save": "Salvează",
+  "lessonsCount": "{count} lecții",
+  "@lessonsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "exportSuccess": "Curriculum exportat cu succes!",
+  "exportFailed": "Export eșuat: {error}",
+  "@exportFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "importSuccess": "S-au importat {count} elemente cu succes!",
+  "@importSuccess": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importFailed": "Import eșuat: {error}",
+  "@importFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "noChallenges": "Nu ai publicat nicio provocare încă.",
+  "createFirst": "Creează prima ta provocare",
+  "approvedTitle": "Aprobat",
+  "pendingTitle": "În Așteptare",
+  "deleteChallengeTitle": "Ștergi provocarea?",
+  "cannotBeUndone": "Această acțiune nu poate fi anulată.",
+  "pendingReview": " Așteaptă Recenzie ({count})",
+  "@pendingReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "approvedReview": " Aprobate ({count})",
+  "@approvedReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noChallengesSubmitted": "Nicio provocare trimisă încă.",
+  "byCreator": "de {creator}  {difficulty}",
+  "@byCreator": {
+    "placeholders": {
+      "creator": {
+        "type": "String"
+      },
+      "difficulty": {
+        "type": "String"
+      }
+    }
+  },
+  "testCasesFiles": "{tests} caz(uri) de test  {files} fișier(e)",
+  "@testCasesFiles": {
+    "placeholders": {
+      "tests": {
+        "type": "int"
+      },
+      "files": {
+        "type": "int"
+      }
+    }
+  },
+  "approveBtn": "Aprobă",
+  "revokeBtn": "Revocă",
+  "copyJsonBtn": "Copiază JSON",
+  "copiedJson": "JSON copiat în clipboard!",
+  "titleRequired": "Titlul este obligatoriu",
+  "publishedAwaiting": "Publicat! Așteaptă aprobarea.",
+  "starterCode": "Cod de Început",
+  "testCaseTitle": "Test {index}",
+  "@testCaseTitle": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "inputStdin": "Intrare (stdin)",
+  "expectedOutput": "Ieșire Așteptată",
+  "outputFileOpt": "Fișier de Ieșire (opțional, de ex. output.out)",
+  "hiddenTest": "Test ascuns",
+  "gotOutput": "Obținut: {output}",
+  "@gotOutput": {
+    "placeholders": {
+      "output": {
+        "type": "String"
+      }
+    }
+  },
+  "fileName": "Nume Fișier (de ex. data.txt)",
+  "fileContent": "Conținut Fișier",
+  "studioAdmin": "Admin Studio",
+  "mineTab": "Ale Mele",
+  "coursesTab": "Cursuri",
+  "reviewTab": "Recenzii",
+  "lesson": "Lecție",
+  "confirmDelete": "Confirmă Ștergerea",
+  "addContentBlock": "Adaugă Bloc de Conținut",
+  "blockHeading": "Titlu",
+  "blockText": "Text",
+  "blockCode": "Cod",
+  "blockImageURL": "URL Imagine",
+  "privateCodeHint": "🔒 Acest cod este privat — utilizat DOAR pentru validare. Utilizatorii din aplicația Core NU îl vor vedea.",
+  "cppSolution": "Soluție C++",
+  "pythonSolution": "Soluție Python",
+  "deleteConfirmTitle": "Șterge?",
+  "editNode": "Editează Nodul {id}",
+  "@editNode": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "highlightGlow": "Evidențiere (Strălucire)",
+  "blockQuiz": "Chestionar",
+  "quizQuestion": "Întrebare Chestionar",
+  "multipleChoice": "Răspuns Multiplu",
+  "enterQuestionText": "Introduceți textul întrebării...",
+  "optionsSelectCorrect": "Opțiuni (Selectați-o pe cea corectă):",
+  "optionLabel": "Opțiunea {index}",
+  "@optionLabel": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "enterOptionText": "Introduceți textul opțiunii...",
+  "removeOption": "Elimină opțiunea",
+  "addOption": "Adaugă Opțiune",
+  "quizExplanation": "Explicație",
+  "quizExplanationHint": "Introdu explicația pentru răspunsurile incorecte...",
+  "quizOptionExplanationHint": "Explicație dacă este incorect (fiecare poate diferi)..."
+}
