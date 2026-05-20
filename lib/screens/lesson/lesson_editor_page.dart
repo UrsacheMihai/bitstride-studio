@@ -537,4 +537,1093 @@ class BlockEditorState extends State<BlockEditor> {
 
   // Update controllers dynamically on widget changes to prevent cursor jumps.
   @override
+  void didUpdateWidget(covariant BlockEditor oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.block.type != oldWidget.block.type) {
+      _type = widget.block.type;
+      if (_type == 'quiz') {
+        _initQuizControllers();
+      } else {
+        _ctrl.text = widget.block.content;
+      }
+    } else if (widget.block.content != oldWidget.block.content) {
+      if (_type != 'quiz') {
+        if (_ctrl.text != widget.block.content) {
+          _ctrl.text = widget.block.content;
+        }
+      } else {
+        try {
+          final data = jsonDecode(widget.block.content) as Map<String, dynamic>;
+          final question = data['question']?.toString() ?? '';
+          final optionsRaw = data['options'] as List<dynamic>?;
+          final options = optionsRaw?.map((e) => e.toString()).toList() ?? [];
+          final correctIndex = data['correctIndex'] as int? ?? 0;
+          // Sync multiple-choice fields with backward compatibility.
+          final isMultipleChoice = data['isMultipleChoice'] as bool? ?? false;
+          final correctIndices = data['correctIndices'] != null
+              ? List<int>.from(data['correctIndices'])
+              : [correctIndex];
+          final explanation = data['explanation']?.toString() ?? '';
+          final explanationsRaw = data['explanations'] as List<dynamic>?;
+          final explanations = explanationsRaw?.map((e) => e.toString()).toList() ?? [];
+          while (explanations.length < options.length) {
+            explanations.add('');
+          }
+
+          if (_questionCtrl.text != question) {
+            _questionCtrl.text = question;
+          }
+          if (_correctIndex != correctIndex) {
+            _correctIndex = correctIndex;
+          }
+          if (_isMultipleChoice != isMultipleChoice) {
+            _isMultipleChoice = isMultipleChoice;
+          }
+          if (_correctIndices.join(',') != correctIndices.join(',')) {
+            _correctIndices = correctIndices;
+          }
+          if (_explanationCtrl.text != explanation) {
+            _explanationCtrl.text = explanation;
+          }
+
+          bool optionsChanged = _optionCtrls.length != options.length;
+          if (!optionsChanged) {
+            for (int i = 0; i < _optionCtrls.length; i++) {
+              if (_optionCtrls[i].text != options[i]) {
+                optionsChanged = true;
+                break;
+              }
+            }
+          }
+
+          if (optionsChanged) {
+            if (_optionCtrls.length == options.length) {
+              for (int i = 0; i < _optionCtrls.length; i++) {
+                if (_optionCtrls[i].text != options[i]) {
+                  _optionCtrls[i].text = options[i];
+                }
+              }
+            } else {
+              for (var ctrl in _optionCtrls) {
+                ctrl.dispose();
+              }
+              _optionCtrls.clear();
+              for (var opt in options) {
+                _optionCtrls.add(TextEditingController(text: opt));
+              }
+            }
+          }
+
+          bool explanationsChanged = _optionExplanationCtrls.length != explanations.length;
+          if (!explanationsChanged) {
+            for (int i = 0; i < _optionExplanationCtrls.length; i++) {
+              if (_optionExplanationCtrls[i].text != explanations[i]) {
+                explanationsChanged = true;
+                break;
+              }
+            }
+          }
+
+          if (explanationsChanged) {
+            if (_optionExplanationCtrls.length == explanations.length) {
+              for (int i = 0; i < _optionExplanationCtrls.length; i++) {
+                if (_optionExplanationCtrls[i].text != explanations[i]) {
+                  _optionExplanationCtrls[i].text = explanations[i];
+                }
+              }
+            } else {
+              for (var ctrl in _optionExplanationCtrls) {
+                ctrl.dispose();
+              }
+              _optionExplanationCtrls.clear();
+              for (var exp in explanations) {
+                _optionExplanationCtrls.add(TextEditingController(text: exp));
+              }
+            }
+          }
+        } catch (_) {}
+      }
+    }
+  }
+
+  // Dispose of all text controllers to avoid memory leaks.
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    _questionCtrl.dispose();
+    _explanationCtrl.dispose();
+    for (var ctrl in _optionCtrls) {
+      ctrl.dispose();
+    }
+    for (var ctrl in _optionExplanationCtrls) {
+      ctrl.dispose();
+    }
+    super.dispose();
+  }
+
+  // Parse quiz content from block and populate the text controllers.
+  void _initQuizControllers() {
+    Map<String, dynamic> data = {};
+    try {
+      if (widget.block.content.isNotEmpty) {
+        data = jsonDecode(widget.block.content) as Map<String, dynamic>;
+      }
+    } catch (_) {}
+
+    final question = data['question']?.toString() ?? '';
+    final optionsRaw = data['options'] as List<dynamic>?;
+    final options = optionsRaw?.map((e) => e.toString()).toList() ?? ['', ''];
+    final correctIndex = data['correctIndex'] as int? ?? 0;
+    // Parse multiple-choice fields with backward compatibility.
+    final isMultipleChoice = data['isMultipleChoice'] as bool? ?? false;
+    final correctIndices = data['correctIndices'] != null
+        ? List<int>.from(data['correctIndices'])
+        : [correctIndex];
+    final explanation = data['explanation']?.toString() ?? '';
+    final explanationsRaw = data['explanations'] as List<dynamic>?;
+    final explanations = explanationsRaw?.map((e) => e.toString()).toList() ?? [];
+    while (explanations.length < options.length) {
+      explanations.add('');
+    }
+
+    _questionCtrl.text = question;
+    _correctIndex = correctIndex;
+    _isMultipleChoice = isMultipleChoice;
+    _correctIndices = correctIndices;
+    _explanationCtrl.text = explanation;
+
+    for (var ctrl in _optionCtrls) {
+      ctrl.dispose();
+    }
+    _optionCtrls.clear();
+    for (var opt in options) {
+      _optionCtrls.add(TextEditingController(text: opt));
+    }
+
+    for (var ctrl in _optionExplanationCtrls) {
+      ctrl.dispose();
+    }
+    _optionExplanationCtrls.clear();
+    for (var exp in explanations) {
+      _optionExplanationCtrls.add(TextEditingController(text: exp));
+    }
+  }
+
+  // Serialize state changes back to block content field.
+  void _emit() {
+    if (_type == 'quiz') {
+      final data = {
+        'question': _questionCtrl.text,
+        'options': _optionCtrls.map((c) => c.text).toList(),
+        'correctIndex': _isMultipleChoice ? (_correctIndices.isNotEmpty ? _correctIndices.first : 0) : _correctIndex,
+        // Save multiple-choice mode and all correct indices.
+        'isMultipleChoice': _isMultipleChoice,
+        'correctIndices': _isMultipleChoice ? _correctIndices : [_correctIndex],
+        'explanation': _explanationCtrl.text,
+        'explanations': _optionExplanationCtrls.map((c) => c.text).toList(),
+      };
+      widget.onChanged(StudioContentBlock(type: _type, content: jsonEncode(data)));
+    } else {
+      widget.onChanged(StudioContentBlock(type: _type, content: _ctrl.text));
+    }
+  }
+
+  // Handle block type transition behavior.
+  void _onTypeChanged(String newType) {
+    if (newType == 'quiz' && _type != 'quiz') {
+      _type = newType;
+      final oldText = _ctrl.text;
+      _questionCtrl.text = oldText;
+      _correctIndex = 0;
+      // Reset multiple-choice state on type change.
+      _isMultipleChoice = false;
+      _correctIndices = [0];
+      _explanationCtrl.text = '';
+      for (var ctrl in _optionCtrls) {
+        ctrl.dispose();
+      }
+      _optionCtrls.clear();
+      _optionCtrls.add(TextEditingController(text: ''));
+      _optionCtrls.add(TextEditingController(text: ''));
+
+      for (var ctrl in _optionExplanationCtrls) {
+        ctrl.dispose();
+      }
+      _optionExplanationCtrls.clear();
+      _optionExplanationCtrls.add(TextEditingController(text: ''));
+      _optionExplanationCtrls.add(TextEditingController(text: ''));
+      _emit();
+    } else if (newType != 'quiz' && _type == 'quiz') {
+      _type = newType;
+      _ctrl.text = _questionCtrl.text;
+      _emit();
+    } else {
+      _type = newType;
+      _emit();
+    }
+  }
+
+  // Return matching icon based on the content block type.
+  IconData _iconForType(String type) {
+    switch (type) {
+      case 'heading':
+        return Icons.title;
+      case 'code':
+        return Icons.code;
+      case 'image':
+        return Icons.image;
+      case 'quiz':
+        return Icons.quiz_rounded;
+      default:
+        return Icons.notes;
+    }
+  }
+
+  // Render BlockEditor widget layout.
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return Card(
+      margin: const EdgeInsets.only(bottom: 12),
+      elevation: 0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(_iconForType(_type),
+                     size: 18, color: Theme.of(context).colorScheme.primary),
+                const SizedBox(width: 8),
+                DropdownButton<String>(
+                  value: _type,
+                  underline: const SizedBox(),
+                  items: [
+                    DropdownMenuItem(
+                        value: 'heading', child: Text(l.blockHeading)),
+                    DropdownMenuItem(value: 'text', child: Text(l.blockText)),
+                    DropdownMenuItem(value: 'code', child: Text(l.blockCode)),
+                    DropdownMenuItem(
+                        value: 'image', child: Text(l.blockImageURL)),
+                    DropdownMenuItem(
+                        value: 'quiz', child: Text(l.blockQuiz)),
+                  ],
+                  onChanged: (v) {
+                    if (v != null)
+                      setState(() {
+                        _onTypeChanged(v);
+                      });
+                  },
+                ),
+                const Spacer(),
+                const Icon(Icons.drag_handle, color: Colors.grey),
+                const SizedBox(width: 4),
+                IconButton(
+                  icon: const Icon(Icons.delete_outline,
+                      color: Color(0xFFE53935)),
+                  onPressed: widget.onRemove,
+                  tooltip: 'Remove block',
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            if (_type == 'quiz') ...[
+              // Render quiz question input field.
+              TextField(
+                controller: _questionCtrl,
+                maxLines: 2,
+                onChanged: (_) => _emit(),
+                decoration: InputDecoration(
+                  labelText: l.quizQuestion,
+                  hintText: l.enterQuestionText,
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                ),
+              ),
+              const SizedBox(height: 12),
+              // Render multiple choice toggle switch.
+              Row(
+                children: [
+                  Text(
+                    l.multipleChoice,
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+                  ),
+                  const Spacer(),
+                  Switch(
+                    value: _isMultipleChoice,
+                    onChanged: (val) {
+                      setState(() {
+                        _isMultipleChoice = val;
+                        if (!val) {
+                          // Reset to single-choice when toggled off.
+                          _correctIndices = [_correctIndex];
+                        } else {
+                          // Seed correctIndices from current single selection.
+                          _correctIndices = [_correctIndex];
+                        }
+                        _emit();
+                      });
+                    },
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4),
+              // Render localized option selection label.
+              Text(
+                l.optionsSelectCorrect,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+              ),
+              const SizedBox(height: 8),
+              // Render dynamic list of quiz option text inputs with correct option selection.
+              ...List.generate(_optionCtrls.length, (index) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 12.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          if (_isMultipleChoice)
+                            // Render checkbox for multiple-choice correct answer selection.
+                            Checkbox(
+                              value: _correctIndices.contains(index),
+                              onChanged: (val) {
+                                setState(() {
+                                  if (val == true) {
+                                    if (!_correctIndices.contains(index)) _correctIndices.add(index);
+                                  } else {
+                                    _correctIndices.remove(index);
+                                  }
+                                  _emit();
+                                });
+                              },
+                            )
+                          else
+                            // Render radio button for single-choice correct answer selection.
+                            Radio<int>(
+                              value: index,
+                              groupValue: _correctIndex,
+                              onChanged: (val) {
+                                if (val != null) {
+                                  setState(() {
+                                    _correctIndex = val;
+                                    _emit();
+                                  });
+                                }
+                              },
+                            ),
+                          Expanded(
+                            // Input text for a single quiz option.
+                            child: TextField(
+                              controller: _optionCtrls[index],
+                              onChanged: (_) => _emit(),
+                              decoration: InputDecoration(
+                                labelText: l.optionLabel(index + 1),
+                                hintText: l.enterOptionText,
+                                isDense: true,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                            ),
+                          ),
+                          if (_optionCtrls.length > 2) ...[
+                            const SizedBox(width: 8),
+                            // Remove quiz option and clean up selection state.
+                            IconButton(
+                              icon: const Icon(Icons.delete_outline, color: Colors.red),
+                              onPressed: () {
+                                setState(() {
+                                  final ctrl = _optionCtrls.removeAt(index);
+                                  ctrl.dispose();
+                                  final expCtrl = _optionExplanationCtrls.removeAt(index);
+                                  expCtrl.dispose();
+                                  if (_correctIndex >= _optionCtrls.length) {
+                                    _correctIndex = _optionCtrls.length - 1;
+                                  }
+                                  _correctIndices.remove(index);
+                                  // Remap indices above removed index.
+                                  _correctIndices = _correctIndices
+                                      .map((i) => i > index ? i - 1 : i)
+                                      .toList();
+                                  _emit();
+                                });
+                              },
+                              tooltip: l.removeOption,
+                            ),
+                          ],
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 48.0, top: 4.0, right: 48.0),
+                        child: TextField(
+                          controller: _optionExplanationCtrls[index],
+                          onChanged: (_) => _emit(),
+                          style: const TextStyle(fontSize: 12),
+                          decoration: InputDecoration(
+                            hintText: l.quizOptionExplanationHint,
+                            isDense: true,
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }),
+              if (_optionCtrls.length < 6) ...[
+                const SizedBox(height: 4),
+                // Add quiz option.
+                TextButton.icon(
+                  icon: const Icon(Icons.add),
+                  label: Text(l.addOption),
+                  onPressed: () {
+                    setState(() {
+                      _optionCtrls.add(TextEditingController());
+                      _optionExplanationCtrls.add(TextEditingController());
+                      _emit();
+                    });
+                  },
+                ),
+              ],
+              const SizedBox(height: 12),
+              TextField(
+                controller: _explanationCtrl,
+                maxLines: 2,
+                onChanged: (_) => _emit(),
+                decoration: InputDecoration(
+                  labelText: l.quizExplanation,
+                  hintText: l.quizExplanationHint,
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                ),
+              ),
+            ] else ...[
+              // Input generic content for non-quiz blocks.
+              TextField(
+                controller: _ctrl,
+                maxLines: _type == 'heading' ? 1 : (_type == 'image' ? 1 : 6),
+                onChanged: (_) => _emit(),
+                style: _type == 'code'
+                    ? const TextStyle(fontFamily: 'monospace', fontSize: 13)
+                    : _type == 'heading'
+                        ? const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)
+                        : null,
+                decoration: InputDecoration(
+                  hintText: _type == 'heading'
+                      ? 'Section title...'
+                      : _type == 'code'
+                          ? '// Code...'
+                          : _type == 'image'
+                              ? 'https://...'
+                              : 'Text here… Use [label](url) or [label](algo:id) for links',
+                  border:
+                      OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                  filled: _type == 'code',
+                  fillColor: _type == 'code'
+                      ? (isDark
+                          ? const Color(0xFF1E1E1E)
+                          : const Color(0xFFF4F4F4))
+                      : null,
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// Provide interface component for Lesson File Row.
+class LessonFileRow extends StatefulWidget {
+  final StudioLessonFile file;
+  final VoidCallback onRemove;
+
+  const LessonFileRow({super.key, required this.file, required this.onRemove});
+
+  @override
+  State<LessonFileRow> createState() => LessonFileRowState();
+}
+
+// Manage state and provide providers for Lesson File Row State.
+class LessonFileRowState extends State<LessonFileRow> {
+  late TextEditingController _nameCtrl;
+  late TextEditingController _contentCtrl;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameCtrl = TextEditingController(text: widget.file.name);
+    _contentCtrl = TextEditingController(text: widget.file.content);
+  }
+
+  @override
+  void dispose() {
+    _nameCtrl.dispose();
+    _contentCtrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 12),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+        side: BorderSide(color: Colors.grey.withOpacity(0.3)),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _nameCtrl,
+                    onChanged: (v) => widget.file.name = v,
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)!.fileName,
+                      hintText: "e.g. data.txt",
+                      isDense: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 12),
+                    ),
+                    style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                IconButton(
+                    onPressed: widget.onRemove,
+                    color: Colors.red,
+                    icon: const Icon(Icons.delete_outline, size: 20)),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Container(
+              height: 150,
+              decoration: BoxDecoration(
+                color: const Color(0xFF23241f),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Focus(
+                onKeyEvent: (node, event) {
+                  if (event.logicalKey == LogicalKeyboardKey.tab &&
+                      event is KeyDownEvent) {
+                    final text = _contentCtrl.text;
+                    final selection = _contentCtrl.selection;
+                    if (selection.start >= 0 && selection.end >= 0) {
+                      final newText = text.replaceRange(
+                          selection.start, selection.end, '    ');
+                      _contentCtrl.value = TextEditingValue(
+                        text: newText,
+                        selection: TextSelection.collapsed(
+                            offset: selection.start + 4),
+                      );
+                      widget.file.content = newText;
+                    }
+                    return KeyEventResult.handled;
+                  }
+                  return KeyEventResult.ignored;
+                },
+                child: TextField(
+                  controller: _contentCtrl,
+                  onChanged: (v) => widget.file.content = v,
+                  maxLines: null,
+                  expands: true,
+                  style: const TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 13,
+                    color: Colors.white,
+                    height: 1.5,
+                  ),
+                  decoration: const InputDecoration(
+                    hintText: "File content goes here...",
+                    hintStyle: TextStyle(color: Colors.grey),
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.all(12),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// Exercise definition and initialization
+class ExerciseTab extends StatefulWidget {
+  final TextEditingController titleCtrl;
+  final TextEditingController descCtrl;
+  final TextEditingController codeCtrl;
+  final TextEditingController solutionCtrl;
+  final TextEditingController memoryLimitCtrl;
+  final TextEditingController timeLimitCtrl;
+  final List<StudioLessonTest> tests;
+  final List<StudioLessonFile> files;
+  final List<TestRunResult?> results;
+  final bool isCodeExercise;
+  final ValueChanged<List<StudioLessonTest>> onTestsChanged;
+  final ValueChanged<List<StudioLessonFile>> onFilesChanged;
+  final double topPad;
+
+  const ExerciseTab({
+    super.key,
+    required this.titleCtrl,
+    required this.descCtrl,
+    required this.codeCtrl,
+    required this.solutionCtrl,
+    required this.memoryLimitCtrl,
+    required this.timeLimitCtrl,
+    required this.tests,
+    required this.files,
+    required this.results,
+    required this.isCodeExercise,
+    required this.onTestsChanged,
+    required this.onFilesChanged,
+    required this.topPad,
+  });
+
+  @override
+  State<ExerciseTab> createState() => ExerciseTabState();
+}
+
+// Exercise definition and initialization
+class ExerciseTabState extends State<ExerciseTab> {
+  late List<StudioLessonTest> _tests;
+  late List<StudioLessonFile> _files;
+
+  @override
+  void initState() {
+    super.initState();
+    _tests = widget.tests;
+    _files = widget.files;
+  }
+
+  void _addTest() {
+    setState(() {
+      _tests.add(StudioLessonTest(input: '', expectedOutput: ''));
+    });
+    widget.onTestsChanged(_tests);
+  }
+
+  void _removeTest(int i) {
+    setState(() => _tests.removeAt(i));
+    widget.onTestsChanged(_tests);
+  }
+
+  void _addFile() {
+    setState(() {
+      _files.add(StudioLessonFile(name: '', content: ''));
+    });
+    widget.onFilesChanged(_files);
+  }
+
+  void _removeFile(int i) {
+    setState(() => _files.removeAt(i));
+    widget.onFilesChanged(_files);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    final results = widget.results;
+    final allPassed =
+        results.isNotEmpty && results.every((r) => r?.passed == true);
+    final anyRan = results.any((r) => r != null);
+    final passCount =
+        results.whereType<TestRunResult>().where((r) => r.passed).length;
+
+    return SingleChildScrollView(
+      padding: EdgeInsets.fromLTRB(16, widget.topPad + 16, 16, 40),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          TextField(
+            controller: widget.titleCtrl,
+            decoration: InputDecoration(
+              labelText: l.lessonTitle,
+              border: const OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 16),
+          TextField(
+            controller: widget.descCtrl,
+            decoration: InputDecoration(
+              labelText: l.description,
+              hintText: 'Supports **markdown** formatting',
+              border: const OutlineInputBorder(),
+              alignLabelWithHint: true,
+            ),
+            maxLines: null,
+            minLines: 3,
+          ),
+          if (widget.isCodeExercise) ...[
+            const SizedBox(height: 16),
+            const Text('Starter Template (Visible to Students)',
+                style: TextStyle(fontWeight: FontWeight.bold)),
+            const SizedBox(height: 4),
+            const Text("This is the starting boilerplate the user sees.",
+                style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey,
+                    fontStyle: FontStyle.italic)),
+            const SizedBox(height: 8),
+            TextField(
+              controller: widget.codeCtrl,
+              decoration: const InputDecoration(border: OutlineInputBorder()),
+              maxLines: 8,
+              style: const TextStyle(fontFamily: 'monospace'),
+            ),
+            const SizedBox(height: 24),
+            const Text('Validation Solution (Hidden from Students)',
+                style: TextStyle(fontWeight: FontWeight.bold)),
+            const SizedBox(height: 4),
+            const Text(
+                "This code is used internally for validation. Users in the Core app will NOT see it.",
+                style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey,
+                    fontStyle: FontStyle.italic)),
+            const SizedBox(height: 8),
+            TextField(
+              controller: widget.solutionCtrl,
+              decoration: const InputDecoration(border: OutlineInputBorder()),
+              maxLines: 12,
+              style: const TextStyle(fontFamily: 'monospace'),
+            ),
+            const SizedBox(height: 24),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: widget.timeLimitCtrl,
+                    decoration: const InputDecoration(
+                      labelText: 'Time Limit (ms)',
+                      hintText: 'e.g. 2000',
+                      border: OutlineInputBorder(),
+                    ),
+                    keyboardType: TextInputType.number,
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: TextField(
+                    controller: widget.memoryLimitCtrl,
+                    decoration: const InputDecoration(
+                      labelText: 'Memory Limit (MB)',
+                      hintText: 'e.g. 256',
+                      border: OutlineInputBorder(),
+                    ),
+                    keyboardType: TextInputType.number,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+            Row(
+              children: [
+                Icon(Icons.attach_file_rounded,
+                    size: 18, color: Theme.of(context).colorScheme.primary),
+                const SizedBox(width: 8),
+                const Text('Provided Files',
+                    style:
+                        TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
+                const Spacer(),
+                TextButton.icon(
+                  onPressed: _addFile,
+                  icon: const Icon(Icons.add_rounded, size: 18),
+                  label: Text(l.add),
+                ),
+              ],
+            ),
+            const SizedBox(height: 4),
+            Text(
+                "Files attached here are available to the user's code at runtime.",
+                style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey[500],
+                    fontStyle: FontStyle.italic)),
+            const SizedBox(height: 8),
+            ..._files.asMap().entries.map((e) => LessonFileRow(
+                  key: ObjectKey(e.value),
+                  file: e.value,
+                  onRemove: () => _removeFile(e.key),
+                )),
+            const SizedBox(height: 24),
+            Row(
+              children: [
+                Icon(Icons.science_rounded,
+                    size: 18, color: Theme.of(context).colorScheme.primary),
+                const SizedBox(width: 8),
+                const Text('Test Cases',
+                    style:
+                        TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
+                const Spacer(),
+                TextButton.icon(
+                  onPressed: _addTest,
+                  icon: const Icon(Icons.add_rounded, size: 18),
+                  label: Text(l.add),
+                ),
+              ],
+            ),
+            if (anyRan)
+              Container(
+                margin: const EdgeInsets.only(top: 12, bottom: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                decoration: BoxDecoration(
+                  color: allPassed
+                      ? StudioTheme.successGreen.withOpacity(0.08)
+                      : StudioTheme.errorRed.withOpacity(0.08),
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(
+                    color: allPassed
+                        ? StudioTheme.successGreen.withOpacity(0.3)
+                        : StudioTheme.errorRed.withOpacity(0.3),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      allPassed
+                          ? Icons.check_circle_rounded
+                          : Icons.error_rounded,
+                      color: allPassed
+                          ? StudioTheme.successGreen
+                          : StudioTheme.errorRed,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      allPassed
+                          ? 'All ${_tests.length} tests passed!'
+                          : '$passCount/${_tests.length} tests passed',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: allPassed
+                            ? StudioTheme.successGreen
+                            : StudioTheme.errorRed,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            const SizedBox(height: 8),
+            ..._tests.asMap().entries.map((entry) {
+              final i = entry.key;
+              final test = entry.value;
+              final res = i < results.length ? results[i] : null;
+              Color? borderColor;
+              if (res != null) {
+                borderColor = res.passed
+                    ? StudioTheme.successGreen
+                    : StudioTheme.errorRed;
+              }
+
+              return Card(
+                margin: const EdgeInsets.only(bottom: 10),
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                  side: BorderSide(
+                    color: borderColor ??
+                        (isDark ? Colors.grey[800]! : Colors.grey[300]!),
+                    width: borderColor != null ? 2 : 1,
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text('Test ${i + 1}',
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w700)),
+                          const Spacer(),
+                          if (res != null)
+                            Icon(
+                              res.passed ? Icons.check_circle : Icons.cancel,
+                              color: res.passed
+                                  ? const Color(0xFF4CAF50)
+                                  : Colors.red,
+                              size: 20,
+                            ),
+                          const SizedBox(width: 8),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Text('Hidden',
+                                  style: TextStyle(fontSize: 12)),
+                              Switch(
+                                value: test.isHidden,
+                                onChanged: (v) {
+                                  setState(() => test.isHidden = v);
+                                  widget.onTestsChanged(_tests);
+                                },
+                              ),
+                            ],
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.delete_outline,
+                                color: Color(0xFFE53935), size: 20),
+                            onPressed: () => _removeTest(i),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      TextField(
+                        decoration: InputDecoration(
+                          labelText: 'Input',
+                          hintText: 'stdin input...',
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8)),
+                          filled: true,
+                          fillColor: isDark
+                              ? const Color(0xFF1E1E1E)
+                              : const Color(0xFFF4F4F4),
+                        ),
+                        maxLines: 3,
+                        controller: TextEditingController(text: test.input),
+                        onChanged: (v) {
+                          test.input = v;
+                          widget.onTestsChanged(_tests);
+                        },
+                        style: const TextStyle(
+                            fontFamily: 'monospace', fontSize: 13),
+                      ),
+                      const SizedBox(height: 8),
+                      TextField(
+                        decoration: InputDecoration(
+                          labelText: 'Expected Output',
+                          hintText: 'stdout output...',
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8)),
+                          filled: true,
+                          fillColor: isDark
+                              ? const Color(0xFF1E1E1E)
+                              : const Color(0xFFF4F4F4),
+                        ),
+                        maxLines: 3,
+                        controller:
+                            TextEditingController(text: test.expectedOutput),
+                        onChanged: (v) {
+                          test.expectedOutput = v;
+                          widget.onTestsChanged(_tests);
+                        },
+                        style: const TextStyle(
+                            fontFamily: 'monospace', fontSize: 13),
+                      ),
+                      if (res != null && !res.passed) ...[
+                        const SizedBox(height: 12),
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: isDark
+                                ? const Color(0xFF2C1315)
+                                : const Color(0xFFFDEDED),
+                            borderRadius: BorderRadius.circular(8),
+                            border:
+                                Border.all(color: Colors.red.withOpacity(0.3)),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              const Text(
+                                'Actual Output:',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                res.compileError != null &&
+                                        res.compileError!.isNotEmpty
+                                    ? res.compileError!
+                                    : res.error != null
+                                        ? res.error!
+                                        : res.actualOutput.isEmpty
+                                            ? '(No output)'
+                                            : res.actualOutput,
+                                style: const TextStyle(
+                                  fontFamily: 'monospace',
+                                  fontSize: 12,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+              );
+            }),
+          ] else ...[
+            const SizedBox(height: 24),
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: isDark
+                    ? Colors.white.withOpacity(0.04)
+                    : Colors.grey.withOpacity(0.06),
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(
+                  color: isDark
+                      ? Colors.white.withOpacity(0.08)
+                      : Colors.grey.withOpacity(0.15),
+                ),
+              ),
+              child: Column(
+                children: [
+                  Icon(Icons.menu_book_rounded,
+                      size: 48,
+                      color: isDark ? Colors.grey[500] : Colors.grey[400]),
+                  const SizedBox(height: 12),
+                  Text(
+                    'Theory-only lesson',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16,
+                      color: isDark ? Colors.grey[300] : Colors.grey[600],
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'No code editor or test cases.\nUse the Content tab to add theory blocks.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: isDark ? Colors.grey[500] : Colors.grey[500],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+          const SizedBox(height: 40),
+        ],
+      ),
+    );
+  }
 }

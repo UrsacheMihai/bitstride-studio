@@ -57,4 +57,93 @@ class StudioChallenge {
       if (timeLimitMs != null) 'time_limit_ms': timeLimitMs,
     };
   }
+
+  // Deserialize a Firestore document map into a StudioChallenge instance.
+  factory StudioChallenge.fromFirestore(Map<String, dynamic> data) {
+    String? cppCode = data['solution_code_cpp'] ?? data['initial_code_cpp'];
+    String? pythonCode =
+        data['solution_code_python'] ?? data['initial_code_python'];
+
+    if (data.containsKey('language') && data.containsKey('initial_code')) {
+      if (data['language'] == 'cpp') {
+        cppCode ??= data['initial_code'];
+      } else {
+        pythonCode ??= data['initial_code'];
+      }
+    }
+
+    return StudioChallenge(
+      id: data['id'] ?? '',
+      title: data['title'] ?? '',
+      difficulty: data['difficulty'] ?? 'Easy',
+      category: data['category'] ?? '',
+      method: data['method'] ?? '',
+      description: data['description'] ?? '',
+      solutionCodeCpp: cppCode,
+      solutionCodePython: pythonCode,
+      tests: (data['tests'] as List? ?? [])
+          .map((t) => StudioTestCase.fromMap(t))
+          .toList(),
+      files: (data['files'] as List? ?? [])
+          .map((f) => StudioFile.fromMap(f))
+          .toList(),
+      creatorUid: data['creator_uid'] ?? '',
+      creatorName: data['creator_name'] ?? 'Anonymous',
+      createdAt: DateTime.tryParse(data['created_at'] ?? '') ?? DateTime.now(),
+      approved: data['approved'] ?? false,
+      memoryLimitMb: data['memory_limit_mb'] as int?,
+      timeLimitMs: data['time_limit_ms'] as int?,
+    );
+  }
+
+  bool get hasCpp => solutionCodeCpp != null && solutionCodeCpp!.isNotEmpty;
+
+  bool get hasPython =>
+      solutionCodePython != null && solutionCodePython!.isNotEmpty;
+}
+
+// Represent a single test case with input, expected output, and optional file paths.
+class StudioTestCase {
+  String input;
+  String expectedOutput;
+  bool isHidden;
+  String? inputFile;
+  String? outputFile;
+
+  StudioTestCase({
+    this.input = '',
+    this.expectedOutput = '',
+    this.isHidden = false,
+    this.inputFile,
+    this.outputFile,
+  });
+
+  Map<String, dynamic> toMap() => {
+        'input': input,
+        'expected_output': expectedOutput,
+        'is_hidden': isHidden,
+        if (inputFile != null) 'input_file': inputFile,
+        if (outputFile != null) 'output_file': outputFile,
+      };
+
+  factory StudioTestCase.fromMap(Map<String, dynamic> m) => StudioTestCase(
+        input: m['input'] ?? '',
+        expectedOutput: m['expected_output'] ?? '',
+        isHidden: m['is_hidden'] ?? false,
+        inputFile: m['input_file'],
+        outputFile: m['output_file'],
+      );
+}
+
+// Store the name and content of an extra file attached to a challenge.
+class StudioFile {
+  String name;
+  String content;
+
+  StudioFile({this.name = '', this.content = ''});
+
+  Map<String, dynamic> toMap() => {'name': name, 'content': content};
+
+  factory StudioFile.fromMap(Map<String, dynamic> m) =>
+      StudioFile(name: m['name'] ?? '', content: m['content'] ?? '');
 }

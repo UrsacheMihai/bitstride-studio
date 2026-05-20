@@ -396,4 +396,260 @@ class _CourseManagerScreenState extends State<CourseManagerScreen> {
       ),
     );
   }
+
+  void _addCourse(BuildContext context) => _showCourseDialog(context, null);
+
+  void _editCourse(BuildContext context, StudioCourse course) =>
+      _showCourseDialog(context, course);
+
+  void _translateCourse(BuildContext context, StudioCourse course) async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) => const AlertDialog(
+        content: Row(
+          children: [
+            CircularProgressIndicator(),
+            SizedBox(width: 20),
+            Expanded(
+                child: Text(
+                    'Auto-translating course content to ES, FR, PT, RO...')),
+          ],
+        ),
+      ),
+    );
+    try {
+      await StudioCoursesFirestore().autoTranslateCourse(course);
+      if (!context.mounted) return;
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text('Course translated and published successfully!')),
+      );
+    } catch (e) {
+      if (!context.mounted) return;
+      Navigator.pop(context);
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Translation Failed'),
+          content: Text(e.toString()),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  void _deleteCourse(BuildContext context, StudioCourse course) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: const Text('Delete Course'),
+        content: Text(
+            'Are you sure you want to delete "${course.title}"? This cannot be undone.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: Text(AppLocalizations.of(context)!.cancel),
+          ),
+          FilledButton(
+            style:
+                FilledButton.styleFrom(backgroundColor: StudioTheme.errorRed),
+            onPressed: () {
+              context.read<StudioState>().deleteCourse(course.id);
+              Navigator.pop(ctx);
+            },
+            child: const Text('Delete'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _deleteLesson(
+      BuildContext context, StudioCourse course, StudioLesson lesson) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: const Text('Delete Lesson'),
+        content: Text('Are you sure you want to delete "${lesson.title}"?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: Text(AppLocalizations.of(context)!.cancel),
+          ),
+          FilledButton(
+            style:
+                FilledButton.styleFrom(backgroundColor: StudioTheme.errorRed),
+            onPressed: () {
+              final newCourse = StudioCourse(
+                id: course.id,
+                title: course.title,
+                description: course.description,
+                language: course.language,
+                lessons:
+                    course.lessons.where((l) => l.id != lesson.id).toList(),
+              );
+              context.read<StudioState>().saveCourse(newCourse);
+              Navigator.pop(ctx);
+            },
+            child: const Text('Delete'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showCourseDialog(BuildContext context, StudioCourse? course) {
+    final titleCtrl = TextEditingController(text: course?.title ?? '');
+    final descCtrl = TextEditingController(text: course?.description ?? '');
+    String lang = course?.language ?? 'cpp';
+    showDialog(
+      context: context,
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setDialogState) => AlertDialog(
+          title: Text(course == null
+              ? AppLocalizations.of(context)!.addCourse
+              : AppLocalizations.of(context)!.editCourse),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: titleCtrl,
+                  decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)!.title),
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  controller: descCtrl,
+                  decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)!.description),
+                  maxLines: 3,
+                ),
+                const SizedBox(height: 12),
+                DropdownButtonFormField<String>(
+                  value: lang,
+                  decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)!.language),
+                  items: const [
+                    DropdownMenuItem(value: 'cpp', child: Text('C++')),
+                    DropdownMenuItem(value: 'python', child: Text('Python')),
+                  ],
+                  onChanged: (v) => setDialogState(() => lang = v!),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx),
+              child: Text(AppLocalizations.of(context)!.cancel),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                final newCourse = StudioCourse(
+                  id: course?.id ?? '',
+                  title: titleCtrl.text,
+                  description: descCtrl.text,
+                  language: lang,
+                  lessons: course?.lessons ?? [],
+                );
+                context.read<StudioState>().saveCourse(newCourse);
+                Navigator.pop(ctx);
+              },
+              child: Text(AppLocalizations.of(context)!.save),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _addLesson(BuildContext context, StudioCourse course) {
+    final newLesson = StudioLesson(
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      title: 'New Lesson',
+      description: '',
+      initialCode: '',
+    );
+    _showLessonEditor(context, course, newLesson, isNew: true);
+  }
+
+  void _editLesson(
+      BuildContext context, StudioCourse course, StudioLesson lesson) {
+    _showLessonEditor(context, course, lesson, isNew: false);
+  }
+
+  void _showLessonEditor(
+      BuildContext context, StudioCourse course, StudioLesson lesson,
+      {required bool isNew}) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (ctx) => LessonEditorPage(
+                course: course,
+                lesson: lesson,
+                isNew: isNew,
+              )),
+    );
+  }
+}
+
+// Course definition and initialization
+class _CourseGradientFab extends StatelessWidget {
+  final String label;
+  final VoidCallback onPressed;
+
+  const _CourseGradientFab({required this.label, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: StudioTheme.creatorGradient,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: StudioTheme.accentPurple.withOpacity(0.35),
+            blurRadius: 16,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(16),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16),
+          onTap: onPressed,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.add_rounded, color: Colors.white, size: 20),
+                const SizedBox(width: 8),
+                Text(
+                  label,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
