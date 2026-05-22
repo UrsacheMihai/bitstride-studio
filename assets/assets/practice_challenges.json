@@ -1,4 +1,1253 @@
 {
-  "title": "Practice Challenges",
-  "challenges": []
+  "challenges": [
+    {
+      "id": "cpp_chall_1_1",
+      "title": "Maximul a trei numere",
+      "difficulty": "Easy",
+      "category": "basic",
+      "method": "stdin",
+      "description": "Se citesc trei numere întregi a, b și c. Să se afișeze valoarea maximă.",
+      "solution_code_cpp": "#include <iostream>\nusing namespace std;\nint main() {\n    int a, b, c;\n    if (cin >> a >> b >> c) {\n        int mx = a;\n        if (b > mx) mx = b;\n        if (c > mx) mx = c;\n        cout << mx << endl;\n    }\n    return 0;\n}",
+      "tests": [
+        {
+          "input": "3 8 5",
+          "expected_output": "8",
+          "is_hidden": false
+        },
+        {
+          "input": "10 2 5",
+          "expected_output": "10",
+          "is_hidden": false
+        },
+        {
+          "input": "-5 -1 -10",
+          "expected_output": "-1",
+          "is_hidden": false
+        },
+        {
+          "input": "0 0 0",
+          "expected_output": "0",
+          "is_hidden": true
+        },
+        {
+          "input": "99 99 100",
+          "expected_output": "100",
+          "is_hidden": true
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "cpp_chall_1_2",
+      "title": "Suma cifrelor unui număr",
+      "difficulty": "Medium",
+      "category": "loops",
+      "method": "stdin",
+      "description": "Se dă un număr natural N. Să se calculeze și să se afișeze suma cifrelor sale.",
+      "solution_code_cpp": "#include <iostream>\nusing namespace std;\nint main() {\n    long long n;\n    if (cin >> n) {\n        if (n == 0) {\n            cout << 0 << endl;\n            return 0;\n        }\n        if (n < 0) n = -n;\n        int sum = 0;\n        while (n > 0) {\n            sum += n % 10;\n            n /= 10;\n        }\n        cout << sum << endl;\n    }\n    return 0;\n}",
+      "tests": [
+        {
+          "input": "123",
+          "expected_output": "6",
+          "is_hidden": false
+        },
+        {
+          "input": "505",
+          "expected_output": "10",
+          "is_hidden": false
+        },
+        {
+          "input": "0",
+          "expected_output": "0",
+          "is_hidden": false
+        },
+        {
+          "input": "99999",
+          "expected_output": "45",
+          "is_hidden": true
+        },
+        {
+          "input": "1000000007",
+          "expected_output": "8",
+          "is_hidden": true
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "cpp_chall_1_3",
+      "title": "Cel Mai Mare Divizor Comun (CMMDC)",
+      "difficulty": "Medium",
+      "category": "math",
+      "method": "stdin",
+      "description": "Se dau două numere naturale a și b. Calculați cel mai mare divizor comun folosind algoritmul lui Euclid.",
+      "solution_code_cpp": "#include <iostream>\nusing namespace std;\nint main() {\n    int a, b;\n    if (cin >> a >> b) {\n        while (b != 0) {\n            int r = a % b;\n            a = b;\n            b = r;\n        }\n        cout << a << endl;\n    }\n    return 0;\n}",
+      "tests": [
+        {
+          "input": "12 18",
+          "expected_output": "6",
+          "is_hidden": false
+        },
+        {
+          "input": "7 13",
+          "expected_output": "1",
+          "is_hidden": false
+        },
+        {
+          "input": "100 25",
+          "expected_output": "25",
+          "is_hidden": false
+        },
+        {
+          "input": "1 1",
+          "expected_output": "1",
+          "is_hidden": true
+        },
+        {
+          "input": "1000 350",
+          "expected_output": "50",
+          "is_hidden": true
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "cpp_chall_2_1",
+      "title": "Sortare crescătoare a unui vector",
+      "difficulty": "Easy",
+      "category": "arrays",
+      "method": "stdin",
+      "description": "Se dă un vector cu N elemente întregi. Să se sorteze în ordine crescătoare și să se afișeze elementele separate prin spațiu.",
+      "solution_code_cpp": "#include <iostream>\n#include <algorithm>\nusing namespace std;\nint main() {\n    int n;\n    if (cin >> n) {\n        int v[1000];\n        for(int i=0; i<n; i++) cin >> v[i];\n        sort(v, v+n);\n        for(int i=0; i<n; i++) cout << v[i] << \" \";\n        cout << endl;\n    }\n    return 0;\n}",
+      "tests": [
+        {
+          "input": "5\n5 4 3 2 1",
+          "expected_output": "1 2 3 4 5 ",
+          "is_hidden": false
+        },
+        {
+          "input": "3\n10 -2 5",
+          "expected_output": "-2 5 10 ",
+          "is_hidden": false
+        },
+        {
+          "input": "1\n99",
+          "expected_output": "99 ",
+          "is_hidden": false
+        },
+        {
+          "input": "6\n7 7 2 1 9 2",
+          "expected_output": "1 2 2 7 7 9 ",
+          "is_hidden": true
+        },
+        {
+          "input": "4\n0 0 0 0",
+          "expected_output": "0 0 0 0 ",
+          "is_hidden": true
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "cpp_chall_2_2",
+      "title": "Eliminare Duplicate",
+      "difficulty": "Medium",
+      "category": "arrays",
+      "method": "stdin",
+      "description": "Se dă un vector cu N elemente întregi. Să se șteargă elementele duplicat păstrând doar prima lor apariție și să se afișeze vectorul rezultat.",
+      "solution_code_cpp": "#include <iostream>\nusing namespace std;\nint main() {\n    int n;\n    if (cin >> n) {\n        int v[1000];\n        int size = 0;\n        for (int i = 0; i < n; i++) {\n            int x;\n            cin >> x;\n            bool duplicat = false;\n            for (int j = 0; j < size; j++) {\n                if (v[j] == x) {\n                    duplicat = true;\n                    break;\n                }\n            }\n            if (!duplicat) {\n                v[size++] = x;\n            }\n        }\n        for (int i = 0; i < size; i++) cout << v[i] << \" \";\n        cout << endl;\n    }\n    return 0;\n}",
+      "tests": [
+        {
+          "input": "6\n1 2 1 3 2 4",
+          "expected_output": "1 2 3 4 ",
+          "is_hidden": false
+        },
+        {
+          "input": "4\n5 5 5 5",
+          "expected_output": "5 ",
+          "is_hidden": false
+        },
+        {
+          "input": "3\n1 2 3",
+          "expected_output": "1 2 3 ",
+          "is_hidden": false
+        },
+        {
+          "input": "5\n-1 -1 0 0 -1",
+          "expected_output": "-1 0 ",
+          "is_hidden": true
+        },
+        {
+          "input": "7\n9 2 9 8 8 2 1",
+          "expected_output": "9 2 8 1 ",
+          "is_hidden": true
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "cpp_chall_2_3",
+      "title": "Interclasare doi vectori sortaţi",
+      "difficulty": "Medium",
+      "category": "arrays",
+      "method": "stdin",
+      "description": "Se dau doi vectori ordonați crescător, cu N, respectiv M elemente. Creați un al treilea vector sortat ce conține elementele ambilor vectori și afișați-l.",
+      "solution_code_cpp": "#include <iostream>\nusing namespace std;\nint main() {\n    int n, m;\n    if (cin >> n >> m) {\n        int a[500], b[500], c[1000];\n        for(int i=0; i<n; i++) cin >> a[i];\n        for(int i=0; i<m; i++) cin >> b[i];\n        int i = 0, j = 0, k = 0;\n        while (i < n && j < m) {\n            if (a[i] < b[j]) c[k++] = a[i++];\n            else c[k++] = b[j++];\n        }\n        while (i < n) c[k++] = a[i++];\n        while (j < m) c[k++] = b[j++];\n        for (int idx=0; idx<k; idx++) cout << c[idx] << \" \";\n        cout << endl;\n    }\n    return 0;\n}",
+      "tests": [
+        {
+          "input": "3 3\n1 3 5\n2 4 6",
+          "expected_output": "1 2 3 4 5 6 ",
+          "is_hidden": false
+        },
+        {
+          "input": "2 4\n1 10\n2 5 7 12",
+          "expected_output": "1 2 5 7 10 12 ",
+          "is_hidden": false
+        },
+        {
+          "input": "1 1\n5\n3",
+          "expected_output": "3 5 ",
+          "is_hidden": false
+        },
+        {
+          "input": "3 1\n1 2 3\n0",
+          "expected_output": "0 1 2 3 ",
+          "is_hidden": true
+        },
+        {
+          "input": "4 3\n-5 -2 0 4\n-3 1 5",
+          "expected_output": "-5 -3 -2 0 1 4 5 ",
+          "is_hidden": true
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "cpp_chall_3_1",
+      "title": "Transpusa unei matrice",
+      "difficulty": "Easy",
+      "category": "matrices",
+      "method": "stdin",
+      "description": "Se dă o matrice cu N linii și M coloane. Să se afișeze transpusa acesteia (de dimensiune M x N).",
+      "solution_code_cpp": "#include <iostream>\nusing namespace std;\nint main() {\n    int n, m;\n    if (cin >> n >> m) {\n        int mat[100][100];\n        for(int i=0; i<n; i++)\n            for(int j=0; j<m; j++)\n                cin >> mat[i][j];\n        for (int j = 0; j < m; j++) {\n            for (int i = 0; i < n; i++) {\n                cout << mat[i][j] << \" \";\n            }\n            cout << endl;\n        }\n    }\n    return 0;\n}",
+      "tests": [
+        {
+          "input": "2 3\n1 2 3\n4 5 6",
+          "expected_output": "1 4 \n2 5 \n3 6 \n",
+          "is_hidden": false
+        },
+        {
+          "input": "2 2\n10 20\n30 40",
+          "expected_output": "10 30 \n20 40 \n",
+          "is_hidden": false
+        },
+        {
+          "input": "1 1\n9",
+          "expected_output": "9 \n",
+          "is_hidden": false
+        },
+        {
+          "input": "3 2\n1 2\n3 4\n5 6",
+          "expected_output": "1 3 5 \n2 4 6 \n",
+          "is_hidden": true
+        },
+        {
+          "input": "4 1\n1\n2\n3\n4",
+          "expected_output": "1 2 3 4 \n",
+          "is_hidden": true
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "cpp_chall_3_2",
+      "title": "Matrice parcursă în Spirală",
+      "difficulty": "Hard",
+      "category": "matrices",
+      "method": "stdin",
+      "description": "Se dă o matrice pătratică de dimensiune N x N. Să se afișeze elementele sale parcurse în ordine spirală, începând din stânga-sus și mergând în sens orar.",
+      "solution_code_cpp": "#include <iostream>\nusing namespace std;\nint main() {\n    int n;\n    if (cin >> n) {\n        int mat[100][100];\n        for(int i=0; i<n; i++)\n            for(int j=0; j<n; j++)\n                cin >> mat[i][j];\n        int st = 0, dr = n - 1, sus = 0, jos = n - 1;\n        while (st <= dr && sus <= jos) {\n            for (int i = st; i <= dr; i++) cout << mat[sus][i] << \" \";\n            sus++;\n            for (int i = sus; i <= jos; i++) cout << mat[i][dr] << \" \";\n            dr--;\n            if (sus <= jos) {\n                for (int i = dr; i >= st; i--) cout << mat[jos][i] << \" \";\n                jos--;\n            }\n            if (st <= dr) {\n                for (int i = jos; i >= sus; i--) cout << mat[i][st] << \" \";\n                st++;\n            }\n        }\n        cout << endl;\n    }\n    return 0;\n}",
+      "tests": [
+        {
+          "input": "3\n1 2 3\n8 9 4\n7 6 5",
+          "expected_output": "1 2 3 4 5 6 7 8 9 ",
+          "is_hidden": false
+        },
+        {
+          "input": "2\n1 2\n4 3",
+          "expected_output": "1 2 3 4 ",
+          "is_hidden": false
+        },
+        {
+          "input": "1\n99",
+          "expected_output": "99 ",
+          "is_hidden": false
+        },
+        {
+          "input": "4\n1 2 3 4\n12 13 14 5\n11 16 15 6\n10 9 8 7",
+          "expected_output": "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 ",
+          "is_hidden": true
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "cpp_chall_3_3",
+      "title": "Suma deasupra Diagonalei Principale",
+      "difficulty": "Medium",
+      "category": "matrices",
+      "method": "stdin",
+      "description": "Se dă o matrice pătratică de dimensiune N x N. Calculați suma elementelor aflate strict deasupra diagonalei principale.",
+      "solution_code_cpp": "#include <iostream>\nusing namespace std;\nint main() {\n    int n;\n    if (cin >> n) {\n        int mat[100][100];\n        long long sum = 0;\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < n; j++) {\n                cin >> mat[i][j];\n                if (j > i) sum += mat[i][j];\n            }\n        }\n        cout << sum << endl;\n    }\n    return 0;\n}",
+      "tests": [
+        {
+          "input": "3\n1 2 3\n4 5 6\n7 8 9",
+          "expected_output": "11",
+          "is_hidden": false
+        },
+        {
+          "input": "2\n1 10\n20 2",
+          "expected_output": "10",
+          "is_hidden": false
+        },
+        {
+          "input": "1\n99",
+          "expected_output": "0",
+          "is_hidden": false
+        },
+        {
+          "input": "4\n1 2 3 4\n5 6 7 8\n9 10 11 12\n13 14 15 16",
+          "expected_output": "30",
+          "is_hidden": true
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "cpp_chall_4_1",
+      "title": "Verificare Palindrom",
+      "difficulty": "Easy",
+      "category": "strings",
+      "method": "stdin",
+      "description": "Se dă un cuvânt fără spații. Verificați dacă este palindrom (se citește la fel de la stânga la dreapta și de la dreapta la stânga). Afișați 'DA' sau 'NU'.",
+      "solution_code_cpp": "#include <iostream>\n#include <cstring>\nusing namespace std;\nint main() {\n    char s[101];\n    if (cin >> s) {\n        int i = 0, j = strlen(s) - 1;\n        bool ok = true;\n        while (i < j) {\n            if (s[i] != s[j]) {\n                ok = false;\n                break;\n            }\n            i++; j--;\n        }\n        if (ok) cout << \"DA\" << endl;\n        else cout << \"NU\" << endl;\n    }\n    return 0;\n}",
+      "tests": [
+        {
+          "input": "capac",
+          "expected_output": "DA",
+          "is_hidden": false
+        },
+        {
+          "input": "salut",
+          "expected_output": "NU",
+          "is_hidden": false
+        },
+        {
+          "input": "a",
+          "expected_output": "DA",
+          "is_hidden": false
+        },
+        {
+          "input": "radar",
+          "expected_output": "DA",
+          "is_hidden": true
+        },
+        {
+          "input": "palindrom",
+          "expected_output": "NU",
+          "is_hidden": true
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "cpp_chall_4_2",
+      "title": "Structura Student",
+      "difficulty": "Medium",
+      "category": "structs",
+      "method": "stdin",
+      "description": "Se dau datele a N studenți (nume - fără spații și notă). Folosind struct, ordonați studenții descrescător după notă și apoi alfabetic în caz de note egale.",
+      "solution_code_cpp": "#include <iostream>\n#include <algorithm>\n#include <cstring>\nusing namespace std;\nstruct Student {\n    char nume[51];\n    double nota;\n};\nbool cmp(Student a, Student b) {\n    if (a.nota != b.nota) return a.nota > b.nota;\n    return strcmp(a.nume, b.nume) < 0;\n}\nint main() {\n    int n;\n    if (cin >> n) {\n        Student s[100];\n        for (int i=0; i<n; i++) {\n            cin >> s[i].nume >> s[i].nota;\n        }\n        sort(s, s+n, cmp);\n        for (int i=0; i<n; i++) {\n            cout << s[i].nume << \" \" << s[i].nota << endl;\n        }\n    }\n    return 0;\n}",
+      "tests": [
+        {
+          "input": "3\nAndrei 9.50\nMihai 9.50\nElena 10.00",
+          "expected_output": "Elena 10\nAndrei 9.5\nMihai 9.5\n",
+          "is_hidden": false
+        },
+        {
+          "input": "2\nPopa 8.00\nAnca 8.00",
+          "expected_output": "Anca 8\nPopa 8\n",
+          "is_hidden": false
+        },
+        {
+          "input": "1\nGeorge 7.00",
+          "expected_output": "George 7\n",
+          "is_hidden": true
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "cpp_chall_4_3",
+      "title": "Căutare Subşir",
+      "difficulty": "Medium",
+      "category": "strings",
+      "method": "stdin",
+      "description": "Se dau două șiruri de caractere, un text T și un subșir S. Determinați de câte ori apare S în cadrul lui T.",
+      "solution_code_cpp": "#include <iostream>\n#include <cstring>\nusing namespace std;\nint main() {\n    char t[201], s[51];\n    if (cin.getline(t, 201) && cin.getline(s, 51)) {\n        int cnt = 0;\n        char* p = strstr(t, s);\n        int lenS = strlen(s);\n        if (lenS == 0) {\n            cout << 0 << endl;\n            return 0;\n        }\n        while (p != NULL) {\n            cnt++;\n            p = strstr(p + 1, s);\n        }\n        cout << cnt << endl;\n    }\n    return 0;\n}",
+      "tests": [
+        {
+          "input": "ana are mere si ana are pere\nana",
+          "expected_output": "2",
+          "is_hidden": false
+        },
+        {
+          "input": "abcdefg\nxyz",
+          "expected_output": "0",
+          "is_hidden": false
+        },
+        {
+          "input": "aaaaa\naa",
+          "expected_output": "4",
+          "is_hidden": false
+        },
+        {
+          "input": "test\ntest",
+          "expected_output": "1",
+          "is_hidden": true
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "cpp_chall_5_1",
+      "title": "CMMDC Recursiv",
+      "difficulty": "Easy",
+      "category": "recursion",
+      "method": "stdin",
+      "description": "Calculați cel mai mare divizor comun a două numere a și b folosind o funcție recursivă.",
+      "solution_code_cpp": "#include <iostream>\nusing namespace std;\nint cmmdc(int a, int b) {\n    if (b == 0) return a;\n    return cmmdc(b, a % b);\n}\nint main() {\n    int a, b;\n    if (cin >> a >> b) cout << cmmdc(a, b) << endl;\n    return 0;\n}",
+      "tests": [
+        {
+          "input": "12 18",
+          "expected_output": "6",
+          "is_hidden": false
+        },
+        {
+          "input": "5 13",
+          "expected_output": "1",
+          "is_hidden": false
+        },
+        {
+          "input": "64 24",
+          "expected_output": "8",
+          "is_hidden": true
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "cpp_chall_5_2",
+      "title": "Turnurile din Hanoi",
+      "difficulty": "Hard",
+      "category": "recursion",
+      "method": "stdin",
+      "description": "Se dau N discuri pe o tijă. Să se afișeze numărul minim de mutări necesare pentru a muta discurile pe o altă tijă folosind o tijă intermediară (mutările Hanoi). formula: 2^N - 1.",
+      "solution_code_cpp": "#include <iostream>\nusing namespace std;\nlong long hanoi_mutari(int n) {\n    if (n == 1) return 1;\n    return 2 * hanoi_mutari(n - 1) + 1;\n}\nint main() {\n    int n;\n    if (cin >> n) cout << hanoi_mutari(n) << endl;\n    return 0;\n}",
+      "tests": [
+        {
+          "input": "3",
+          "expected_output": "7",
+          "is_hidden": false
+        },
+        {
+          "input": "1",
+          "expected_output": "1",
+          "is_hidden": false
+        },
+        {
+          "input": "5",
+          "expected_output": "31",
+          "is_hidden": false
+        },
+        {
+          "input": "10",
+          "expected_output": "1023",
+          "is_hidden": true
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "cpp_chall_5_3",
+      "title": "Suma cifrelor recursiv",
+      "difficulty": "Medium",
+      "category": "recursion",
+      "method": "stdin",
+      "description": "Calculați suma cifrelor unui număr N folosind o funcție recursivă.",
+      "solution_code_cpp": "#include <iostream>\nusing namespace std;\nint sum_cif(long long n) {\n    if (n == 0) return 0;\n    return n % 10 + sum_cif(n / 10);\n}\nint main() {\n    long long n;\n    if (cin >> n) {\n        if (n == 0) cout << 0 << endl;\n        else cout << sum_cif(n) << endl;\n    }\n    return 0;\n}",
+      "tests": [
+        {
+          "input": "123",
+          "expected_output": "6",
+          "is_hidden": false
+        },
+        {
+          "input": "909",
+          "expected_output": "18",
+          "is_hidden": false
+        },
+        {
+          "input": "9999",
+          "expected_output": "36",
+          "is_hidden": true
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "cpp_chall_6_1",
+      "title": "Problema Rucsacului (Greedy)",
+      "difficulty": "Medium",
+      "category": "greedy",
+      "method": "stdin",
+      "description": "Se dau N obiecte (greutate și valoare) și un rucsac de capacitate G. Să se afișeze valoarea maximă care poate fi obținută permițând fracționarea obiectelor. Obiectele vor fi alese prioritar în funcție de raportul valoare/greutate.",
+      "solution_code_cpp": "#include <iostream>\n#include <algorithm>\n#include <iomanip>\nusing namespace std;\nstruct Obiect {\n    double g, v, rap;\n};\nbool cmp(Obiect a, Obiect b) {\n    return a.rap > b.rap;\n}\nint main() {\n    int n; double gCap;\n    if (cin >> n >> gCap) {\n        Obiect o[100];\n        for (int i=0; i<n; i++) {\n            cin >> o[i].g >> o[i].v;\n            o[i].rap = o[i].v / o[i].g;\n        }\n        sort(o, o+n, cmp);\n        double valTot = 0;\n        for (int i=0; i<n; i++) {\n            if (gCap >= o[i].g) {\n                valTot += o[i].v;\n                gCap -= o[i].g;\n            } else {\n                valTot += gCap * o[i].rap;\n                break;\n            }\n        }\n        cout << fixed << setprecision(2) << valTot << endl;\n    }\n    return 0;\n}",
+      "tests": [
+        {
+          "input": "3 50\n10 60\n20 100\n30 120",
+          "expected_output": "240.00",
+          "is_hidden": false
+        },
+        {
+          "input": "1 10\n20 100",
+          "expected_output": "50.00",
+          "is_hidden": false
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "cpp_chall_6_2",
+      "title": "Generare Permutări",
+      "difficulty": "Medium",
+      "category": "backtracking",
+      "method": "stdin",
+      "description": "Se dă un număr natural N. Generați toate permutările mulțimii {1, 2, ..., N} în ordine lexicografică.",
+      "solution_code_cpp": "#include <iostream>\nusing namespace std;\nint n, sol[10];\nbool uz[10];\nvoid backtr(int k) {\n    if (k == n + 1) {\n        for (int i=1; i<=n; i++) cout << sol[i] << \" \";\n        cout << endl;\n        return;\n    }\n    for (int i=1; i<=n; i++) {\n        if (!uz[i]) {\n            uz[i] = true;\n            sol[k] = i;\n            backtr(k + 1);\n            uz[i] = false;\n        }\n    }\n}\nint main() {\n    if (cin >> n) backtr(1);\n    return 0;\n}",
+      "tests": [
+        {
+          "input": "3",
+          "expected_output": "1 2 3 \n1 3 2 \n2 1 3 \n2 3 1 \n3 1 2 \n3 2 1 \n",
+          "is_hidden": false
+        },
+        {
+          "input": "2",
+          "expected_output": "1 2 \n2 1 \n",
+          "is_hidden": false
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "cpp_chall_6_3",
+      "title": "Merge Sort",
+      "difficulty": "Hard",
+      "category": "divide_and_conquer",
+      "method": "stdin",
+      "description": "Setați sortarea unui vector folosind algoritmul Divide et Impera - Merge Sort.",
+      "solution_code_cpp": "#include <iostream>\nusing namespace std;\nint v[1000], temp[1000];\nvoid merge_arr(int st, int mij, int dr) {\n    int i = st, j = mij + 1, k = st;\n    while (i <= mij && j <= dr) {\n        if (v[i] <= v[j]) temp[k++] = v[i++];\n        else temp[k++] = v[j++];\n    }\n    while (i <= mij) temp[k++] = v[i++];\n    while (j <= dr) temp[k++] = v[j++];\n    for (i = st; i <= dr; i++) v[i] = temp[i];\n}\nvoid merge_sort(int st, int dr) {\n    if (st < dr) {\n        int mij = st + (dr - st) / 2;\n        merge_sort(st, mij);\n        merge_sort(mij + 1, dr);\n        merge_arr(st, mij, dr);\n    }\n}\nint main() {\n    int n;\n    if (cin >> n) {\n        for(int i=0; i<n; i++) cin >> v[i];\n        merge_sort(0, n - 1);\n        for(int i=0; i<n; i++) cout << v[i] << \" \";\n        cout << endl;\n    }\n    return 0;\n}",
+      "tests": [
+        {
+          "input": "5\n4 2 1 5 3",
+          "expected_output": "1 2 3 4 5 ",
+          "is_hidden": false
+        },
+        {
+          "input": "2\n10 -1",
+          "expected_output": "-1 10 ",
+          "is_hidden": false
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "cpp_chall_7_1",
+      "title": "Componente Conexe",
+      "difficulty": "Medium",
+      "category": "graphs",
+      "method": "stdin",
+      "description": "Se dă un graf neorientat cu N noduri și M muchii. Să se determine numărul total de componente conexe ale grafului.",
+      "solution_code_cpp": "#include <iostream>\nusing namespace std;\nint n, m;\nint adj[101][101];\nbool viz[101];\nvoid dfs(int nod) {\n    viz[nod] = true;\n    for(int i=1; i<=n; i++) {\n        if (adj[nod][i] == 1 && !viz[i]) dfs(i);\n    }\n}\nint main() {\n    if (!(cin >> n >> m)) return 0;\n    for(int i=0; i<m; i++) {\n        int u, v;\n        cin >> u >> v;\n        adj[u][v] = 1;\n        adj[v][u] = 1;\n    }\n    int comp = 0;\n    for (int i=1; i<=n; i++) {\n        if (!viz[i]) {\n            comp++;\n            dfs(i);\n        }\n    }\n    cout << comp << endl;\n    return 0;\n}",
+      "tests": [
+        {
+          "input": "5 3\n1 2\n2 3\n4 5",
+          "expected_output": "2",
+          "is_hidden": false
+        },
+        {
+          "input": "4 2\n1 2\n3 4",
+          "expected_output": "2",
+          "is_hidden": false
+        },
+        {
+          "input": "3 0",
+          "expected_output": "3",
+          "is_hidden": false
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 128,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "cpp_chall_7_2",
+      "title": "Cel Mai Scurt Drum (Dijkstra)",
+      "difficulty": "Hard",
+      "category": "graphs",
+      "method": "stdin",
+      "description": "Se dă un graf orientat ponderat cu muchii având costuri pozitive. Să se afișeze distanțele minime de la nodul sursă 1 la toate celelalte noduri.",
+      "solution_code_cpp": "#include <iostream>\nusing namespace std;\nconst int INF = 1e9;\nint n, m;\nint cost[101][101];\nint dist[101];\nbool viz[101];\nint main() {\n    if (!(cin >> n >> m)) return 0;\n    for (int i = 1; i <= n; i++) {\n        for (int j = 1; j <= n; j++) {\n            if (i == j) cost[i][j] = 0;\n            else cost[i][j] = INF;\n        }\n    }\n    for (int i = 0; i < m; i++) {\n        int u, v, w;\n        cin >> u >> v >> w;\n        cost[u][v] = w;\n    }\n    for (int i = 1; i <= n; i++) {\n        dist[i] = cost[1][i];\n        viz[i] = false;\n    }\n    dist[1] = 0;\n    viz[1] = true;\n    for (int k = 1; k < n; k++) {\n        int minNod = -1, minVal = INF;\n        for (int i = 1; i <= n; i++) {\n            if (!viz[i] && dist[i] < minVal) {\n                minVal = dist[i];\n                minNod = i;\n            }\n        }\n        if (minNod == -1) break;\n        viz[minNod] = true;\n        for (int i = 1; i <= n; i++) {\n            if (!viz[i] && dist[minNod] + cost[minNod][i] < dist[i]) {\n                dist[i] = dist[minNod] + cost[minNod][i];\n            }\n        }\n    }\n    for (int i = 1; i <= n; i++) {\n        if (dist[i] == INF) cout << -1 << \" \";\n        else cout << dist[i] << \" \";\n    }\n    cout << endl;\n    return 0;\n}",
+      "tests": [
+        {
+          "input": "3 3\n1 2 10\n2 3 5\n1 3 20",
+          "expected_output": "0 10 15 ",
+          "is_hidden": false
+        },
+        {
+          "input": "4 2\n1 2 5\n3 4 1",
+          "expected_output": "0 5 -1 -1 ",
+          "is_hidden": false
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 128,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "cpp_chall_7_3",
+      "title": "Arbore de Acoperire Minim (Kruskal)",
+      "difficulty": "Hard",
+      "category": "graphs",
+      "method": "stdin",
+      "description": "Se dă un graf neorientat conex cu costuri. Determinați costul minim al unui arbore de acoperire folosind algoritmul lui Kruskal.",
+      "solution_code_cpp": "#include <iostream>\n#include <algorithm>\nusing namespace std;\nstruct Muchie {\n    int u, v, w;\n};\nbool cmp(Muchie a, Muchie b) { return a.w < b.w; }\nint tata[101];\nint gaseste(int x) {\n    if (tata[x] == 0) return x;\n    return tata[x] = gaseste(tata[x]);\n}\nbool reuneste(int x, int y) {\n    int rx = gaseste(x);\n    int ry = gaseste(y);\n    if (rx != ry) {\n        tata[rx] = ry;\n        return true;\n    }\n    return false;\n}\nint main() {\n    int n, m;\n    if (cin >> n >> m) {\n        Muchie e[1000];\n        for (int i = 0; i < m; i++) {\n            cin >> e[i].u >> e[i].v >> e[i].w;\n        }\n        sort(e, e+m, cmp);\n        int costTot = 0, muchiiSelectate = 0;\n        for (int i = 0; i < m; i++) {\n            if (reuneste(e[i].u, e[i].v)) {\n                costTot += e[i].w;\n                muchiiSelectate++;\n                if (muchiiSelectate == n - 1) break;\n            }\n        }\n        cout << costTot << endl;\n    }\n    return 0;\n}",
+      "tests": [
+        {
+          "input": "4 5\n1 2 2\n1 3 3\n2 3 1\n2 4 4\n3 4 5",
+          "expected_output": "7",
+          "is_hidden": false
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 128,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "py_chall_1_1",
+      "title": "Verificare an bisect",
+      "difficulty": "Easy",
+      "category": "basic",
+      "method": "stdin",
+      "description": "Scrieți un program care citește un an și determină dacă acesta este bisect (divizibil cu 4, dar nu cu 100, excepție dacă este divizibil cu 400). Afișați True sau False.",
+      "solution_code_python": "import sys\n\ndef is_leap(y):\n    return y % 4 == 0 and (y % 100 != 0 or y % 400 == 0)\n\ndef main():\n    lines = sys.stdin.read().split()\n    if not lines: return\n    y = int(lines[0])\n    print(is_leap(y))\n\nif __name__ == '__main__':\n    main()",
+      "tests": [
+        {
+          "input": "2020",
+          "expected_output": "True",
+          "is_hidden": false
+        },
+        {
+          "input": "1900",
+          "expected_output": "False",
+          "is_hidden": false
+        },
+        {
+          "input": "2000",
+          "expected_output": "True",
+          "is_hidden": false
+        },
+        {
+          "input": "2023",
+          "expected_output": "False",
+          "is_hidden": true
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "py_chall_1_2",
+      "title": "Verificare număr prim",
+      "difficulty": "Medium",
+      "category": "math",
+      "method": "stdin",
+      "description": "Se dă un număr natural N. Să se verifice dacă N este prim și să se afișeze True sau False.",
+      "solution_code_python": "import sys\nimport math\n\ndef is_prime(n):\n    if n <= 1: return False\n    for i in range(2, int(math.isqrt(n)) + 1):\n        if n % i == 0: return False\n    return True\n\ndef main():\n    lines = sys.stdin.read().split()\n    if not lines: return\n    n = int(lines[0])\n    print(is_prime(n))\n\nif __name__ == '__main__':\n    main()",
+      "tests": [
+        {
+          "input": "7",
+          "expected_output": "True",
+          "is_hidden": false
+        },
+        {
+          "input": "4",
+          "expected_output": "False",
+          "is_hidden": false
+        },
+        {
+          "input": "1",
+          "expected_output": "False",
+          "is_hidden": false
+        },
+        {
+          "input": "1000000007",
+          "expected_output": "True",
+          "is_hidden": true
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "py_chall_1_3",
+      "title": "Frecvenţa elementelor pare",
+      "difficulty": "Medium",
+      "category": "loops",
+      "method": "stdin",
+      "description": "Citiți numere de la tastatură până la întâlnirea lui 0. Afișați câte dintre numerele citite au fost pare (excluzând elementul de oprire 0).",
+      "solution_code_python": "import sys\ndef main():\n    nums = list(map(int, sys.stdin.read().split()))\n    cnt = 0\n    for x in nums:\n        if x == 0: break\n        if x % 2 == 0: cnt += 1\n    print(cnt)\nif __name__ == '__main__':\n    main()",
+      "tests": [
+        {
+          "input": "2 3 4 5 0",
+          "expected_output": "2",
+          "is_hidden": false
+        },
+        {
+          "input": "1 3 5 0",
+          "expected_output": "0",
+          "is_hidden": false
+        },
+        {
+          "input": "0",
+          "expected_output": "0",
+          "is_hidden": true
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "py_chall_2_1",
+      "title": "Frecvenţă caractere cu Dicţionar",
+      "difficulty": "Easy",
+      "category": "dict",
+      "method": "stdin",
+      "description": "Se dă un cuvânt. Creați un dicționar de frecvență a caracterelor și afișați numărul de apariții pentru fiecare caracter sortat alfabetic.",
+      "solution_code_python": "import sys\ndef main():\n    lines = sys.stdin.read().split()\n    if not lines: return\n    s = lines[0]\n    freq = {}\n    for char in s:\n        freq[char] = freq.get(char, 0) + 1\n    for key in sorted(freq.keys()):\n        print(f\"{key}: {freq[key]}\")\nif __name__ == '__main__':\n    main()",
+      "tests": [
+        {
+          "input": "banana",
+          "expected_output": "a: 3\nb: 1\nn: 2\n",
+          "is_hidden": false
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "py_chall_2_2",
+      "title": "Intersecţie de Seturi",
+      "difficulty": "Medium",
+      "category": "set",
+      "method": "stdin",
+      "description": "Se dau două liste de numere. Folosind seturi, afișați elementele comune sortate crescător.",
+      "solution_code_python": "import sys\ndef main():\n    data = sys.stdin.read().split('\\n')\n    if len(data) < 2: return\n    set1 = set(map(int, data[0].split()))\n    set2 = set(map(int, data[1].split()))\n    comun = sorted(list(set1.intersection(set2)))\n    print(\" \".join(map(str, comun)))\nif __name__ == '__main__':\n    main()",
+      "tests": [
+        {
+          "input": "1 2 3 4\n3 4 5 6",
+          "expected_output": "3 4",
+          "is_hidden": false
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "py_chall_2_3",
+      "title": "Răsturnare Listă prin Slicing",
+      "difficulty": "Medium",
+      "category": "strings",
+      "method": "stdin",
+      "description": "Se dă o listă de cuvinte. Să se afișeze cuvintele în ordine inversă folosind slicing.",
+      "solution_code_python": "import sys\ndef main():\n    words = sys.stdin.read().split()\n    rev = words[::-1]\n    print(\" \".join(rev))\nif __name__ == '__main__':\n    main()",
+      "tests": [
+        {
+          "input": "unu doi trei patru",
+          "expected_output": "patru trei doi unu",
+          "is_hidden": false
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "py_chall_3_1",
+      "title": "Calculator funcţional",
+      "difficulty": "Easy",
+      "category": "functions",
+      "method": "stdin",
+      "description": "Implementați o funcție care primește două numere și o funcție de operație, apelând operația respectivă.",
+      "solution_code_python": "import sys\ndef execute(a, b, op):\n    return op(a, b)\ndef main():\n    lines = sys.stdin.read().split()\n    if len(lines) < 3: return\n    a, b = int(lines[0]), int(lines[1])\n    op_str = lines[2]\n    if op_str == '+':\n        print(execute(a, b, lambda x, y: x + y))\n    elif op_str == '*':\n        print(execute(a, b, lambda x, y: x * y))\nif __name__ == '__main__':\n    main()",
+      "tests": [
+        {
+          "input": "5 10 +",
+          "expected_output": "15",
+          "is_hidden": false
+        },
+        {
+          "input": "3 4 *",
+          "expected_output": "12",
+          "is_hidden": false
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "py_chall_3_2",
+      "title": "Suma cu argumente dinamice (*args)",
+      "difficulty": "Medium",
+      "category": "functions",
+      "method": "stdin",
+      "description": "Implementați o funcție recursivă sau iterativă `sum_all(*args)` care însumează toate numerele primite ca parametru dinamic.",
+      "solution_code_python": "import sys\ndef sum_all(*args):\n    return sum(args)\ndef main():\n    nums = list(map(int, sys.stdin.read().split()))\n    print(sum_all(*nums))\nif __name__ == '__main__':\n    main()",
+      "tests": [
+        {
+          "input": "1 2 3 4 5",
+          "expected_output": "15",
+          "is_hidden": false
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "py_chall_3_3",
+      "title": "Closure Counter",
+      "difficulty": "Medium",
+      "category": "closures",
+      "method": "stdin",
+      "description": "Implementați un contor închidere (closure) care reține starea și crește valoarea cu pasul dat.",
+      "solution_code_python": "import sys\ndef make_counter(start, step):\n    val = start\n    def counter():\n        nonlocal val\n        res = val\n        val += step\n        return res\n    return counter\ndef main():\n    lines = list(map(int, sys.stdin.read().split()))\n    if len(lines) < 3: return\n    start, step, times = lines[0], lines[1], lines[2]\n    c = make_counter(start, step)\n    res = [c() for _ in range(times)]\n    print(\" \".join(map(str, res)))\nif __name__ == '__main__':\n    main()",
+      "tests": [
+        {
+          "input": "10 2 4",
+          "expected_output": "10 12 14 16",
+          "is_hidden": false
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "py_chall_4_1",
+      "title": "Căutare cuvânt în fişier",
+      "difficulty": "Easy",
+      "category": "files",
+      "method": "files",
+      "description": "Citiți din fișierul 'input.txt' și verificați dacă conține cuvântul 'Python'. Afișați True sau False.",
+      "solution_code_python": "import os\ndef main():\n    if not os.path.exists('input.txt'):\n        print(False)\n        return\n    with open('input.txt', 'r') as f:\n        content = f.read()\n        print('Python' in content)\nif __name__ == '__main__':\n    main()",
+      "files": [
+        {
+          "name": "input.txt",
+          "content": "Welcome to learning Python coding."
+        }
+      ],
+      "tests": [],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "py_chall_4_2",
+      "title": "Formatare şablon",
+      "difficulty": "Medium",
+      "category": "strings",
+      "method": "stdin",
+      "description": "Formatarea unui șablon textual primind variabile dinamice.",
+      "solution_code_python": "import sys\ndef main():\n    lines = sys.stdin.read().split()\n    if len(lines) < 2: return\n    nume, xp = lines[0], lines[1]\n    print(f\"User {nume} are {xp} XP.\")\nif __name__ == '__main__':\n    main()",
+      "tests": [
+        {
+          "input": "Mihai 1500",
+          "expected_output": "User Mihai are 1500 XP.",
+          "is_hidden": false
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "py_chall_4_3",
+      "title": "Curăţare Text",
+      "difficulty": "Medium",
+      "category": "strings",
+      "method": "stdin",
+      "description": "Se dă un text cu semne de punctuație. Să se curețe de punctuație (. , ! ? ;) și să se returneze textul în litere mici.",
+      "solution_code_python": "import sys\ndef main():\n    text = sys.stdin.read().strip()\n    for c in \".,!?;-*\":\n        text = text.replace(c, \"\")\n    print(text.lower())\nif __name__ == '__main__':\n    main()",
+      "tests": [
+        {
+          "input": "Salut, Mihai! Ce faci?",
+          "expected_output": "salut mihai ce faci",
+          "is_hidden": false
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "py_chall_5_1",
+      "title": "Moştenire Animale",
+      "difficulty": "Easy",
+      "category": "oop",
+      "method": "stdin",
+      "description": "Implementați clasa de bază Animal și clasa derivată Caine care are o metodă suplimentară de lătrat.",
+      "solution_code_python": "import sys\nclass Animal:\n    def __init__(self, nume):\n        self.nume = nume\nclass Caine(Animal):\n    def vorbeste(self):\n        return \"Ham\"\ndef main():\n    lines = sys.stdin.read().split()\n    if not lines: return\n    c = Caine(lines[0])\n    print(f\"{c.nume}: {c.vorbeste()}\")\nif __name__ == '__main__':\n    main()",
+      "tests": [
+        {
+          "input": "Rex",
+          "expected_output": "Rex: Ham",
+          "is_hidden": false
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "py_chall_5_2",
+      "title": "Cont Bancar (Încapsulare)",
+      "difficulty": "Medium",
+      "category": "oop",
+      "method": "stdin",
+      "description": "Implementați clasa ContBancar ce reține un sold privat (__sold) și oferă metode de depunere, retragere și vizualizare.",
+      "solution_code_python": "import sys\nclass ContBancar:\n    def __init__(self, sold_initial):\n        self.__sold = sold_initial\n    def depune(self, suma):\n        self.__sold += suma\n    def retrage(self, suma):\n        if suma <= self.__sold:\n            self.__sold -= suma\n            return True\n        return False\n    def get_sold(self):\n        return self.__sold\ndef main():\n    lines = list(map(int, sys.stdin.read().split()))\n    if len(lines) < 3: return\n    init, dep, ret = lines[0], lines[1], lines[2]\n    c = ContBancar(init)\n    c.depune(dep)\n    c.retrage(ret)\n    print(c.get_sold())\nif __name__ == '__main__':\n    main()",
+      "tests": [
+        {
+          "input": "100 50 30",
+          "expected_output": "120",
+          "is_hidden": false
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "py_chall_5_3",
+      "title": "Polimorfism Forme Geometrice",
+      "difficulty": "Medium",
+      "category": "oop",
+      "method": "stdin",
+      "description": "Implementați polimorfism pentru formele pătrat și cerc.",
+      "solution_code_python": "import sys\nimport math\nclass Patrat:\n    def __init__(self, l):\n        self.l = l\n    def arie(self):\n        return self.l ** 2\nclass Cerc:\n    def __init__(self, r):\n        self.r = r\n    def arie(self):\n        return math.pi * (self.r ** 2)\ndef main():\n    lines = sys.stdin.read().split()\n    if len(lines) < 2: return\n    l, r = float(lines[0]), float(lines[1])\n    p = Patrat(l)\n    c = Cerc(r)\n    print(f\"{p.arie():.2f} {c.arie():.2f}\")\nif __name__ == '__main__':\n    main()",
+      "tests": [
+        {
+          "input": "4 3",
+          "expected_output": "16.00 28.27",
+          "is_hidden": false
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "py_chall_6_1",
+      "title": "Factorial Recursiv Python",
+      "difficulty": "Easy",
+      "category": "recursion",
+      "method": "stdin",
+      "description": "Calculați factorialul unui număr recursiv.",
+      "solution_code_python": "import sys\ndef fact(n):\n    if n <= 1: return 1\n    return n * fact(n - 1)\ndef main():\n    lines = sys.stdin.read().split()\n    if not lines: return\n    print(fact(int(lines[0])))\nif __name__ == '__main__':\n    main()",
+      "tests": [
+        {
+          "input": "5",
+          "expected_output": "120",
+          "is_hidden": false
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "py_chall_6_2",
+      "title": "Implementare Coadă FIFO",
+      "difficulty": "Medium",
+      "category": "queues",
+      "method": "stdin",
+      "description": "Implementați o coadă FIFO folosind collections.deque.",
+      "solution_code_python": "import sys\nfrom collections import deque\ndef main():\n    lines = sys.stdin.read().split()\n    q = deque()\n    for val in lines:\n        if val == 'POP':\n            if q: q.popleft()\n        else:\n            q.append(int(val))\n    print(\" \".join(map(str, q)))\nif __name__ == '__main__':\n    main()",
+      "tests": [
+        {
+          "input": "1 2 POP 3 4",
+          "expected_output": "2 3 4",
+          "is_hidden": false
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "py_chall_6_3",
+      "title": "Sumă sublistă recursivă",
+      "difficulty": "Medium",
+      "category": "recursion",
+      "method": "stdin",
+      "description": "Calculați suma unei liste recursive nestructurate.",
+      "solution_code_python": "import sys\nimport json\ndef sum_nested(item):\n    if isinstance(item, int): return item\n    if isinstance(item, list): return sum(sum_nested(x) for x in item)\n    return 0\ndef main():\n    raw = sys.stdin.read().strip()\n    data = json.loads(raw)\n    print(sum_nested(data))\nif __name__ == '__main__':\n    main()",
+      "tests": [
+        {
+          "input": "[1, [2, 3], [4, [5]]]",
+          "expected_output": "15",
+          "is_hidden": false
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "py_chall_7_1",
+      "title": "Sortare prin Selecţie",
+      "difficulty": "Easy",
+      "category": "algorithms",
+      "method": "stdin",
+      "description": "Implementați sortarea prin selecție.",
+      "solution_code_python": "import sys\ndef selection_sort(arr):\n    n = len(arr)\n    for i in range(n):\n        min_idx = i\n        for j in range(i+1, n):\n            if arr[j] < arr[min_idx]:\n                min_idx = j\n        arr[i], arr[min_idx] = arr[min_idx], arr[i]\n    return arr\ndef main():\n    nums = list(map(int, sys.stdin.read().split()))\n    sorted_arr = selection_sort(nums)\n    print(\" \".join(map(str, sorted_arr)))\nif __name__ == '__main__':\n    main()",
+      "tests": [
+        {
+          "input": "5 3 1 2 4",
+          "expected_output": "1 2 3 4 5",
+          "is_hidden": false
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "py_chall_7_2",
+      "title": "Parcurgere DFS în Python",
+      "difficulty": "Medium",
+      "category": "graphs",
+      "method": "stdin",
+      "description": "Se dă o listă de adiacență reprezentând un graf. Parcurgeți graful DFS.",
+      "solution_code_python": "import sys\nimport json\ndef dfs(graph, start, visited=None):\n    if visited is None: visited = []\n    visited.append(start)\n    for neighbor in sorted(graph.get(str(start), [])):\n        if neighbor not in visited:\n            dfs(graph, neighbor, visited)\n    return visited\ndef main():\n    raw = sys.stdin.read().strip()\n    # expected format: JSON representation of adjacency dict\n    # e.g., {\"1\": [2, 3], \"2\": [4], \"3\": [], \"4\": []}\n    data = json.loads(raw)\n    res = dfs(data, 1)\n    print(\" \".join(map(str, res)))\nif __name__ == '__main__':\n    main()",
+      "tests": [
+        {
+          "input": "{\"1\": [2, 3], \"2\": [4], \"3\": [], \"4\": []}",
+          "expected_output": "1 2 4 3",
+          "is_hidden": false
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    },
+    {
+      "id": "py_chall_7_3",
+      "title": "Distanţa de Editare (Levenstein)",
+      "difficulty": "Hard",
+      "category": "dynamic_programming",
+      "method": "stdin",
+      "description": "Calculați distanța minimă de editare Levenstein între două cuvinte.",
+      "solution_code_python": "import sys\ndef levenshtein(s1, s2):\n    if len(s1) < len(s2): return levenshtein(s2, s1)\n    if len(s2) == 0: return len(s1)\n    prev = list(range(len(s2) + 1))\n    for i, c1 in enumerate(s1):\n        curr = [i + 1]\n        for j, c2 in enumerate(s2):\n            insertions = prev[j + 1] + 1\n            deletions = curr[j] + 1\n            substitutions = prev[j] + (c1 != c2)\n            curr.append(min(insertions, deletions, substitutions))\n        prev = curr\n    return prev[-1]\ndef main():\n    lines = sys.stdin.read().split()\n    if len(lines) < 2: return\n    print(levenshtein(lines[0], lines[1]))\nif __name__ == '__main__':\n    main()",
+      "tests": [
+        {
+          "input": "kitten sitting",
+          "expected_output": "3",
+          "is_hidden": false
+        }
+      ],
+      "creator_uid": "curriculum_builder",
+      "creator_name": "BitStride Academy",
+      "created_at": "2026-05-22T00:00:00Z",
+      "approved": true,
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000
+    }
+  ]
 }

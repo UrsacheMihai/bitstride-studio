@@ -1,8 +1,428 @@
 {
   "id": "cpp_basics",
-  "title": "C++ Basics",
-  "description": "Learn the fundamentals of C++",
-  "icon": "code",
-  "color": "0xFF2196F3",
-  "modules": []
+  "title": "C++ 0 to Hero (Romanian High School)",
+  "description": "Un curs complet care acoperă programa de liceu din România, de la sintaxa de bază la grafuri și arbori.",
+  "language": "cpp",
+  "lessons": [
+    {
+      "id": "cpp_lesson_1",
+      "title": "Introducere şi Structuri de Control",
+      "description": "Învaţă sintaxa de bază, tipurile de date şi structurile de decizie şi repetiţie.",
+      "type": "mixed",
+      "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Scrie codul tău aici\n    return 0;\n}",
+      "solution_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n    if (cin >> n) {\n        cout << n * (n + 1) / 2 << endl;\n    }\n    return 0;\n}",
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000,
+      "tests": [
+        {
+          "input": "5",
+          "expected_output": "15",
+          "is_hidden": false
+        },
+        {
+          "input": "10",
+          "expected_output": "55",
+          "is_hidden": false
+        },
+        {
+          "input": "1",
+          "expected_output": "1",
+          "is_hidden": false
+        },
+        {
+          "input": "100",
+          "expected_output": "5050",
+          "is_hidden": true
+        },
+        {
+          "input": "0",
+          "expected_output": "0",
+          "is_hidden": true
+        }
+      ],
+      "files": [],
+      "content_blocks": [
+        {
+          "type": "heading",
+          "content": "1. Introducere în C++ și Structuri de Control"
+        },
+        {
+          "type": "text",
+          "content": "Sintaxa C++ este derivată din C. Un program de bază conține o funcție `main` și directive de preprocesare precum `#include <iostream>`. Variabilele se declară specificând tipul lor (`int`, `double`, `char`, `bool`).\n\n### Instrucțiuni de control:\n- **Decizionale**: `if-else` și `switch` permit ramificarea codului.\n- **Repetitive**: `for` (când cunoaștem numărul de pași), `while` (cu test inițial) și `do-while` (cu test final, se execută cel puțin o dată).\n\nÎn exercițiul de astăzi, vom calcula suma primelor N numere naturale: $S = 1 + 2 + ... + N$."
+        },
+        {
+          "type": "quiz",
+          "content": "{\"question\": \"Care instruc\\u021biune repetitiv\\u0103 din C++ evalueaz\\u0103 condi\\u021bia la sf\\u00e2r\\u0219itul corpului buclei (execut\\u00e2ndu-se cel pu\\u021bin o dat\\u0103)?\", \"options\": [\"while\", \"for\", \"do-while\", \"if-else\"], \"correctIndex\": 2, \"isMultipleChoice\": false, \"correctIndices\": [2], \"explanation\": \"Instruc\\u021biunea do-while execut\\u0103 corpul buclei \\u0219i apoi verific\\u0103 condi\\u021bia. Astfel, ruleaz\\u0103 cel pu\\u021bin o dat\\u0103.\", \"explanations\": [\"Incorrect. While verific\\u0103 condi\\u021bia la \\u00eenceput (test ini\\u021bial).\", \"Incorrect. For verific\\u0103 condi\\u021bia la \\u00eenceput.\", \"Corect! Do-while are testul la final \\u0219i garanteaz\\u0103 cel pu\\u021bin o executare.\", \"Incorrect. If-else este o instruc\\u021biune de decizie, nu una repetitiv\\u0103.\"]}"
+        },
+        {
+          "type": "quiz",
+          "content": "{\"question\": \"Care este rezultatul opera\\u021biei de \\u00eemp\\u0103r\\u021bire \\u00eentre \\u00eentregi: 7 / 2 \\u00een C++?\", \"options\": [\"3.5\", \"3\", \"1\", \"4\"], \"correctIndex\": 1, \"isMultipleChoice\": false, \"correctIndices\": [1], \"explanation\": \"\\u00cen C++, \\u00eemp\\u0103r\\u021birea a dou\\u0103 numere \\u00eentregi returneaz\\u0103 partea \\u00eentreag\\u0103 a rezultatului (3).\", \"explanations\": [\"Incorrect. Rezultatul ar fi 3.5 doar dac\\u0103 cel pu\\u021bin unul dintre operanzi ar fi de tip real (float/double).\", \"Corect! 7 / 2 este \\u00eemp\\u0103r\\u021bire \\u00eentreag\\u0103 \\u0219i d\\u0103 3.\", \"Incorrect. Rezultatul 1 ar fi restul \\u00eemp\\u0103r\\u021birii (7 % 2).\", \"Incorrect. 7 \\u00eemp\\u0103r\\u021bit la 2 rotunjit matematic ar fi 4, dar C++ taie partea zecimal\\u0103.\"]}"
+        },
+        {
+          "type": "quiz",
+          "content": "{\"question\": \"Ce antet (header) trebuie inclus pentru a folosi streamurile de citire/scriere cin \\u0219i cout?\", \"options\": [\"<cmath>\", \"<cstring>\", \"<iostream>\", \"<fstream>\"], \"correctIndex\": 2, \"isMultipleChoice\": false, \"correctIndices\": [2], \"explanation\": \"iostream con\\u021bine defini\\u021biile pentru cin, cout, cerr \\u0219i clog.\", \"explanations\": [\"Incorrect. cmath este pentru func\\u021bii matematice precum sqrt sau pow.\", \"Incorrect. cstring este pentru manipularea \\u0219irurilor de caractere C-style.\", \"Corect! iostream \\u00eenseamn\\u0103 Input/Output Stream.\", \"Incorrect. fstream este folosit exclusiv pentru lucrul cu fi\\u0219iere.\"]}"
+        }
+      ]
+    },
+    {
+      "id": "cpp_lesson_2",
+      "title": "Tablouri Unidimensionale (Vectori)",
+      "description": "Învaţă să foloseşti vectorii pentru a stoca secvenţe de elemente şi implementează algoritmi de căutare şi sortare.",
+      "type": "mixed",
+      "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Scrie codul tău aici\n    return 0;\n}",
+      "solution_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n, x;\n    if (!(cin >> n >> x)) return 0;\n    int val;\n    bool gasit = false;\n    for (int i = 0; i < n; i++) {\n        cin >> val;\n        if (val == x) {\n            gasit = true;\n        }\n    }\n    if (gasit) cout << \"DA\" << endl;\n    else cout << \"NU\" << endl;\n    return 0;\n}",
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000,
+      "tests": [
+        {
+          "input": "5 3\n1 2 3 4 5",
+          "expected_output": "DA",
+          "is_hidden": false
+        },
+        {
+          "input": "4 10\n1 2 3 4",
+          "expected_output": "NU",
+          "is_hidden": false
+        },
+        {
+          "input": "1 5\n5",
+          "expected_output": "DA",
+          "is_hidden": false
+        },
+        {
+          "input": "6 7\n2 5 1 9 7 3",
+          "expected_output": "DA",
+          "is_hidden": true
+        },
+        {
+          "input": "5 0\n1 1 1 1 1",
+          "expected_output": "NU",
+          "is_hidden": true
+        }
+      ],
+      "files": [],
+      "content_blocks": [
+        {
+          "type": "heading",
+          "content": "2. Tablouri Unidimensionale (Vectori)"
+        },
+        {
+          "type": "text",
+          "content": "Un tablou unidimensional (vector) stochează mai multe elemente de același tip în locații contigue de memorie. Indexarea elementelor începe de la `0` până la `N-1`.\n\n### Operații comune:\n- **Parcurgere**: Accesarea fiecărui element prin index.\n- **Căutare**: Liniară ($O(N)$) sau Binară ($O(\\log N)$) pe vectori sortați.\n- **Sortare**: Rearanjarea elementelor în ordine crescătoare sau descrescătoare (Bubble Sort, Selection Sort, Insertion Sort).\n\nÎn exercițiul de astăzi, vom căuta dacă o valoare X se află într-un vector dat."
+        },
+        {
+          "type": "quiz",
+          "content": "{\"question\": \"Dac\\u0103 declar\\u0103m vectorul `int v[10];`, care sunt indicii valizi pentru elementele sale?\", \"options\": [\"de la 1 la 10\", \"de la 0 la 9\", \"de la 0 la 10\", \"de la -1 la 9\"], \"correctIndex\": 1, \"isMultipleChoice\": false, \"correctIndices\": [1], \"explanation\": \"\\u00cen C++, indexarea vectorilor \\u00eencepe \\u00eentotdeauna de la 0, deci un vector de dimensiune N are indici de la 0 la N-1.\", \"explanations\": [\"Incorrect. \\u00cen C++ indexarea nu \\u00eencepe de la 1.\", \"Corect! Pentru dimensiunea 10, indicii sunt de la 0 la 9.\", \"Incorrect. v[10] dep\\u0103\\u0219e\\u0219te limita alocat\\u0103 \\u0219i poate produce comportament nedefinit.\", \"Incorrect. Nu exist\\u0103 indici negativi \\u00een vectorii C++ standard.\"]}"
+        },
+        {
+          "type": "quiz",
+          "content": "{\"question\": \"Ce complexitate de timp \\u00een cel mai r\\u0103u caz are algoritmul Bubble Sort pe un vector cu N elemente?\", \"options\": [\"O(N)\", \"O(log N)\", \"O(N^2)\", \"O(N log N)\"], \"correctIndex\": 2, \"isMultipleChoice\": false, \"correctIndices\": [2], \"explanation\": \"Bubble Sort folose\\u0219te bucle imbricate \\u0219i efectueaz\\u0103 compara\\u021bii repetate, duc\\u00e2nd la o complexitate \\u00een cel mai r\\u0103u caz de O(N^2).\", \"explanations\": [\"Incorrect. O(N) este complexitatea c\\u0103ut\\u0103rii liniare sau a sort\\u0103rii Bubble Sort optimizate pe un vector gata sortat.\", \"Incorrect. O(log N) este complexitatea c\\u0103ut\\u0103rii binare.\", \"Corect! \\u00cen cel mai r\\u0103u caz (vector inversat), complexitatea este p\\u0103tratic\\u0103 O(N^2).\", \"Incorrect. O(N log N) este specific\\u0103 algoritmilor rapizi precum Merge Sort sau Quick Sort.\"]}"
+        },
+        {
+          "type": "quiz",
+          "content": "{\"question\": \"Ce se \\u00eent\\u00e2mpl\\u0103 dac\\u0103 \\u00eencerc\\u0103m s\\u0103 acces\\u0103m `v[15]` dintr-un vector declarat `int v[5];`?\", \"options\": [\"Eroare de compilare garantat\\u0103\", \"Eroare la rulare sau comportament nedefinit\", \"Vectorul se extinde automat\", \"Se returneaz\\u0103 0 automat\"], \"correctIndex\": 1, \"isMultipleChoice\": false, \"correctIndices\": [1], \"explanation\": \"C++ nu verific\\u0103 automat dep\\u0103\\u0219irea limitelor vectorului la rulare, ceea ce duce la accesarea unei zone de memorie nealocate corespunz\\u0103tor (Out of bounds) - comportament nedefinit.\", \"explanations\": [\"Incorrect. Compilatorul nu \\u0219tie dimensiunea vectorului la rulare dac\\u0103 accesul se face dinamic, deci nu ofer\\u0103 mereu erori de compilare.\", \"Corect! Este o problem\\u0103 grav\\u0103 de securitate/rulare ce determin\\u0103 comportamente imprevizibile sau crash.\", \"Incorrect. Vectorii statici din C++ nu se extind.\", \"Incorrect. Nu se garanteaz\\u0103 nicio valoare standard, ci o valoare rezidual\\u0103.\"]}"
+        }
+      ]
+    },
+    {
+      "id": "cpp_lesson_3",
+      "title": "Tablouri Bidimensionale (Matrice)",
+      "description": "Descoperă structura matricelor şi proprietăţile lor matematice, inclusiv lucrul cu diagonala principală şi secundară.",
+      "type": "mixed",
+      "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Scrie codul tău aici\n    return 0;\n}",
+      "solution_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n    if (!(cin >> n)) return 0;\n    long long suma = 0;\n    for (int i = 0; i < n; i++) {\n        for (int j = 0; j < n; j++) {\n            int val;\n            cin >> val;\n            if (i == j) {\n                suma += val;\n            }\n        }\n    }\n    cout << suma << endl;\n    return 0;\n}",
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000,
+      "tests": [
+        {
+          "input": "3\n1 2 3\n4 5 6\n7 8 9",
+          "expected_output": "15",
+          "is_hidden": false
+        },
+        {
+          "input": "2\n10 20\n30 40",
+          "expected_output": "50",
+          "is_hidden": false
+        },
+        {
+          "input": "1\n99",
+          "expected_output": "99",
+          "is_hidden": false
+        },
+        {
+          "input": "4\n1 0 0 0\n0 2 0 0\n0 0 3 0\n0 0 0 4",
+          "expected_output": "10",
+          "is_hidden": true
+        },
+        {
+          "input": "3\n-1 -2 -3\n-4 -5 -6\n-7 -8 -9",
+          "expected_output": "-15",
+          "is_hidden": true
+        }
+      ],
+      "files": [],
+      "content_blocks": [
+        {
+          "type": "heading",
+          "content": "3. Tablouri Bidimensionale (Matrice)"
+        },
+        {
+          "type": "text",
+          "content": "O matrice stochează date sub formă de tabel bidimensional cu linii și coloane. Declararea se face prin `tip nume[linii][coloane];`.\n\n### Matricea Pătratică (N x N):\n- **Diagonala Principală**: Elementele unde indexul liniei este egal cu indexul coloanei (`i == j`).\n- **Diagonala Secundară**: Elementele unde suma indicilor este egală cu dimensiunea minus 1 (`i + j == N - 1`).\n- **Elementele de deasupra diagonalei principale**: `i < j`.\n- **Elementele de sub diagonala principală**: `i > j`.\n\nÎn exercițiul de astăzi, vom calcula suma elementelor de pe diagonala principală a unei matrice."
+        },
+        {
+          "type": "quiz",
+          "content": "{\"question\": \"\\u00centr-o matrice p\\u0103tratic\\u0103 de dimensiune N, ce condi\\u021bie \\u00eendeplinesc elementele aflate pe diagonala secundar\\u0103 (folosind indexare de la 0 la N-1)?\", \"options\": [\"i == j\", \"i + j == N - 1\", \"i + j == N\", \"i > j\"], \"correctIndex\": 1, \"isMultipleChoice\": false, \"correctIndices\": [1], \"explanation\": \"Pe diagonala secundar\\u0103, pe m\\u0103sur\\u0103 ce linia i cre\\u0219te, coloana j scade. Suma lor este mereu constant\\u0103: i + j = N - 1.\", \"explanations\": [\"Incorrect. i == j reprezint\\u0103 diagonala principal\\u0103.\", \"Corect! i + j == N - 1 este formula corect\\u0103 pentru indexare de la 0.\", \"Incorrect. i + j == N ar fi corect\\u0103 doar dac\\u0103 indexarea ar \\u00eencepe de la 1.\", \"Incorrect. i > j reprezint\\u0103 zona de sub diagonala principal\\u0103.\"]}"
+        },
+        {
+          "type": "quiz",
+          "content": "{\"question\": \"Cum se declar\\u0103 o matrice de numere reale cu 5 linii \\u0219i 10 coloane \\u00een C++?\", \"options\": [\"int m[5][10];\", \"float m[10][5];\", \"double m[5][10];\", \"double m[5, 10];\"], \"correctIndex\": 2, \"isMultipleChoice\": false, \"correctIndices\": [2], \"explanation\": \"Tipul real poate fi float sau double. Declararea se face cu paranteze drepte separate: double m[5][10];\", \"explanations\": [\"Incorrect. Tipul int stocheaz\\u0103 numere \\u00eentregi, nu reale.\", \"Incorrect. Aceasta ar declara o matrice cu 10 linii \\u0219i 5 coloane.\", \"Corect! double ofer\\u0103 precizie ridicat\\u0103 pentru numere reale \\u0219i dimensiunile sunt 5 linii, 10 coloane.\", \"Incorrect. Sintaxa cu virgul\\u0103 m[5,10] nu este valid\\u0103 \\u00een C++.\"]}"
+        },
+        {
+          "type": "quiz",
+          "content": "{\"question\": \"Ce complexitate de timp are parcurgerea complet\\u0103 a unei matrice cu R linii \\u0219i C coloane pentru afi\\u0219are?\", \"options\": [\"O(R + C)\", \"O(R * C)\", \"O(R^2)\", \"O(1)\"], \"correctIndex\": 1, \"isMultipleChoice\": false, \"correctIndices\": [1], \"explanation\": \"Pentru a accesa fiecare celul\\u0103 a matricei o singur\\u0103 dat\\u0103, trebuie s\\u0103 trecem prin toate cele R * C elemente folosind dou\\u0103 bucle imbricate.\", \"explanations\": [\"Incorrect. Nu putem parcurge toate celulele doar adun\\u00e2nd dimensiunile.\", \"Corect! Num\\u0103rul total de pa\\u0219i este propor\\u021bional cu num\\u0103rul de elemente, R * C.\", \"Incorrect. O(R^2) ar fi corect doar dac\\u0103 R = C \\u0219i am vizita elementele \\u00eentr-un mod ineficient.\", \"Incorrect. Parcurgerea depinde direct de dimensiunile matricei.\"]}"
+        }
+      ]
+    },
+    {
+      "id": "cpp_lesson_4",
+      "title": "Şiruri de Caractere şi Structuri de Date",
+      "description": "Învaţă să manipulezi şirurile de caractere folosind biblioteca <cstring> şi să grupezi date eterogene în structuri personalizate.",
+      "type": "mixed",
+      "initial_code": "#include <iostream>\n#include <cstring>\nusing namespace std;\n\nint main() {\n    // Scrie codul tău aici\n    return 0;\n}",
+      "solution_code": "#include <iostream>\n#include <cstring>\nusing namespace std;\n\nint main() {\n    char s[101];\n    if (!cin.getline(s, 101)) return 0;\n    int vocale = 0;\n    int len = strlen(s);\n    for (int i = 0; i < len; i++) {\n        char c = tolower(s[i]);\n        if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {\n            vocale++;\n        }\n    }\n    cout << vocale << endl;\n    return 0;\n}",
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000,
+      "tests": [
+        {
+          "input": "Salutare",
+          "expected_output": "4",
+          "is_hidden": false
+        },
+        {
+          "input": "C++ programming",
+          "expected_output": "3",
+          "is_hidden": false
+        },
+        {
+          "input": "aeiouAEIOU",
+          "expected_output": "10",
+          "is_hidden": false
+        },
+        {
+          "input": "bcdfg h j k l m p q r s t v w x y z",
+          "expected_output": "0",
+          "is_hidden": true
+        },
+        {
+          "input": "O poveste frumoasa de programare",
+          "expected_output": "13",
+          "is_hidden": true
+        }
+      ],
+      "files": [],
+      "content_blocks": [
+        {
+          "type": "heading",
+          "content": "4. Şiruri de Caractere şi Structuri (struct)"
+        },
+        {
+          "type": "text",
+          "content": "În C++, un șir de caractere clasic este un tablou de tip `char`, care se termină cu caracterul special `\\0` (null-terminator).\n\n### Biblioteca `<cstring>` conține funcții esențiale:\n- `strlen(s)`: returnează lungimea șirului (fără `\\0`).\n- `strcpy(dest, src)`: copiază un șir în altul.\n- `strcmp(s1, s2)`: compară lexicografic două șiruri (returnează 0 dacă sunt egale).\n- `strcat(dest, src)`: concatenează două șiruri.\n- `strchr(s, c)` / `strstr(s, sub)`: caută un caracter sau un subșir.\n\n### Tipul `struct`:\nPermite gruparea mai multor variabile de tipuri diferite sub un singur nume, reprezentând înregistrări de date complexe.\n\nÎn exercițiul de astăzi, vom număra vocalele dintr-un șir de caractere dat."
+        },
+        {
+          "type": "quiz",
+          "content": "{\"question\": \"Ce caracter marcheaz\\u0103 sf\\u00e2r\\u0219itul unui \\u0219ir de caractere \\u00een format standard C-style (char[])?\", \"options\": [\"'\\\\n'\", \"' '\", \"'\\\\0'\", \"'. '\"], \"correctIndex\": 2, \"isMultipleChoice\": false, \"correctIndices\": [2], \"explanation\": \"Caracterul nul '\\\\0' (valoare ASCII 0) marcheaz\\u0103 sf\\u00e2r\\u0219itul memoriei alocate pentru \\u0219ir, indiferent de dimensiunea tabloului.\", \"explanations\": [\"Incorrect. '\\\\n' reprezint\\u0103 un caracter de linie nou\\u0103 (newline).\", \"Incorrect. Spa\\u021biul alb ' ' desparte cuvinte, dar nu finalizeaz\\u0103 \\u0219irul.\", \"Corect! '\\\\0' este null terminator \\u0219i define\\u0219te sf\\u00e2r\\u0219itul \\u0219irului.\", \"Incorrect. Punctul este un caracter grafic obi\\u0219nuit.\"]}"
+        },
+        {
+          "type": "quiz",
+          "content": "{\"question\": \"Ce returneaz\\u0103 func\\u021bia strcmp(s1, s2) dac\\u0103 cele dou\\u0103 \\u0219iruri s1 \\u0219i s2 sunt identice?\", \"options\": [\"true\", \"1\", \"0\", \"-1\"], \"correctIndex\": 2, \"isMultipleChoice\": false, \"correctIndices\": [2], \"explanation\": \"strcmp returneaz\\u0103 0 dac\\u0103 \\u0219irurile sunt egale, o valoare negativ\\u0103 dac\\u0103 s1 este lexicografic \\u00eenaintea lui s2, \\u0219i o valoare pozitiv\\u0103 \\u00een caz contrar.\", \"explanations\": [\"Incorrect. strcmp returneaz\\u0103 valori de tip int, nu bool.\", \"Incorrect. 1 ar \\u00eensemna c\\u0103 s1 este mai mare lexicografic dec\\u00e2t s2.\", \"Corect!strcmp returneaz\\u0103 0 \\u00een caz de egalitate perfect\\u0103.\", \"Incorrect. -1 ar \\u00eensemna c\\u0103 s1 este mai mic lexicografic dec\\u00e2t s2.\"]}"
+        },
+        {
+          "type": "quiz",
+          "content": "{\"question\": \"Cum acces\\u0103m membrul `media` al unui obiect structurat declarat prin `Student s;`?\", \"options\": [\"s->media\", \"s.media\", \"s[media]\", \"Student.media\"], \"correctIndex\": 1, \"isMultipleChoice\": false, \"correctIndices\": [1], \"explanation\": \"Pentru obiecte structurate alocate direct, folosim operatorul punct (.). Pentru pointeri la structuri, am folosi operatorul s\\u0103geat\\u0103 (->).\", \"explanations\": [\"Incorrect. Operatorul -> se folose\\u0219te doar dac\\u0103 s este un pointer la structur\\u0103 (Student* s).\", \"Corect! Operatorul punct este cel corect pentru accesarea membrilor.\", \"Incorrect. Aceasta este o sintax\\u0103 gre\\u0219it\\u0103 \\u00een C++.\", \"Incorrect. Student este numele tipului (clasa/structura), nu instan\\u021ba.\"]}"
+        }
+      ]
+    },
+    {
+      "id": "cpp_lesson_5",
+      "title": "Subprograme (Funcţii) şi Recursivitate",
+      "description": "Stăpâneşte modularizarea codului prin funcţii cu parametri transmişi prin valoare sau referinţă şi înţelege recursivitatea.",
+      "type": "mixed",
+      "initial_code": "#include <iostream>\nusing namespace std;\n\n// Scrie funcția recursivă aici\n\nint main() {\n    // Scrie apelul aici\n    return 0;\n}",
+      "solution_code": "#include <iostream>\nusing namespace std;\n\nlong long fibo(int n) {\n    if (n <= 0) return 0;\n    if (n == 1) return 1;\n    return fibo(n - 1) + fibo(n - 2);\n}\n\nint main() {\n    int n;\n    if (cin >> n) {\n        cout << fibo(n) << endl;\n    }\n    return 0;\n}",
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000,
+      "tests": [
+        {
+          "input": "5",
+          "expected_output": "5",
+          "is_hidden": false
+        },
+        {
+          "input": "0",
+          "expected_output": "0",
+          "is_hidden": false
+        },
+        {
+          "input": "1",
+          "expected_output": "1",
+          "is_hidden": false
+        },
+        {
+          "input": "10",
+          "expected_output": "55",
+          "is_hidden": true
+        },
+        {
+          "input": "12",
+          "expected_output": "144",
+          "is_hidden": true
+        }
+      ],
+      "files": [],
+      "content_blocks": [
+        {
+          "type": "heading",
+          "content": "5. Subprograme (Funcţii) şi Recursivitate"
+        },
+        {
+          "type": "text",
+          "content": "Modularizarea presupune împărțirea unui program complex în subprograme (funcții) independente, cu scopul de a asigura reutilizarea codului.\n\n### Transmiterea parametrilor:\n- **Prin valoare**: Se creează o copie a variabilei în memorie. Modificările din funcție nu afectează variabila din `main`.\n- **Prin referință**: Se transmite adresa variabilei (folosind operatorul `&`). Orice modificare a parametrului în cadrul funcției schimbă direct valoarea variabilei originale.\n\n### Recursivitatea:\nO funcție este recursivă dacă se autoapelează direct sau indirect. Ea are neapărat nevoie de:\n1. **Cazul de bază**: Condiția de oprire a autoapelului.\n2. **Pasul recursiv**: Apelarea funcției cu parametri mai simpli, tinzând spre cazul de bază.\n\nÎn exercițiul de astăzi, vom scrie o funcție recursivă pentru al N-lea termen din șirul lui Fibonacci: $F(0)=0, F(1)=1, F(N) = F(N-1) + F(N-2)$."
+        },
+        {
+          "type": "quiz",
+          "content": "{\"question\": \"Cum declar\\u0103m o func\\u021bie `dublare` care prime\\u0219te un parametru \\u00eentreg X \\u0219i \\u00eei modific\\u0103 direct valoarea \\u00een variabila din programul principal (apel prin referin\\u021b\\u0103)?\", \"options\": [\"void dublare(int x);\", \"void dublare(int &x);\", \"int dublare(int x);\", \"void dublare(int *x);\"], \"correctIndex\": 1, \"isMultipleChoice\": false, \"correctIndices\": [1], \"explanation\": \"Folosirea caracterului & \\u00eenainte de numele parametrului define\\u0219te o referin\\u021b\\u0103, permi\\u021b\\u00e2nd modificarea direct\\u0103 a argumentului original.\", \"explanations\": [\"Incorrect. Acesta este apelul standard prin valoare; modific\\u0103rile nu se salveaz\\u0103.\", \"Corect! Operatorul & creeaz\\u0103 o referin\\u021b\\u0103 c\\u0103tre variabila original\\u0103.\", \"Incorrect. Aceast\\u0103 func\\u021bie returneaz\\u0103 un \\u00eentreg dar parametrul este \\u00een continuare transmis prin valoare.\", \"Incorrect. Transmiterea prin pointer int* func\\u021bioneaz\\u0103 de asemenea, dar necesit\\u0103 utilizarea operatorului * la accesare \\u0219i & la apel, nefiind referin\\u021ba nativ\\u0103 din C++.\"]}"
+        },
+        {
+          "type": "quiz",
+          "content": "{\"question\": \"Ce eroare grav\\u0103 de memorie apare de obicei atunci c\\u00e2nd o func\\u021bie recursiv\\u0103 nu atinge niciodat\\u0103 cazul de baz\\u0103 (bucleaz\\u0103 infinit)?\", \"options\": [\"Compilation Error\", \"Segmentation Fault (Stack Overflow)\", \"Memory Leak\", \"Division by Zero\"], \"correctIndex\": 1, \"isMultipleChoice\": false, \"correctIndices\": [1], \"explanation\": \"Fiecare autoapel adaug\\u0103 un cadru de stiv\\u0103 \\u00een memoria stivei sistemului. C\\u00e2nd stiva este complet plin\\u0103, se produce eroarea de Stack Overflow (dep\\u0103\\u0219irea stivei).\", \"explanations\": [\"Incorrect. Eroarea nu apare la compilare, ci la rulare.\", \"Corect! Se produce un Stack Overflow din cauza dep\\u0103\\u0219irii limitei de memorie a stivei apelurilor.\", \"Incorrect. Memory leak apare c\\u00e2nd aloc\\u0103m memorie \\u00een Heap \\u0219i uit\\u0103m s\\u0103 o eliber\\u0103m (delete), nu are leg\\u0103tur\\u0103 cu recursivitatea infinit\\u0103.\", \"Incorrect. \\u00cemp\\u0103r\\u021birea la zero este o eroare matematic\\u0103 aritmetic\\u0103.\"]}"
+        },
+        {
+          "type": "quiz",
+          "content": "{\"question\": \"Ce returneaz\\u0103 func\\u021bia recursiv\\u0103 `int f(int n) { if(n==0) return 0; return n + f(n-1); }` la apelul `f(3)`?\", \"options\": [\"3\", \"6\", \"0\", \"f(2)\"], \"correctIndex\": 1, \"isMultipleChoice\": false, \"correctIndices\": [1], \"explanation\": \"Apelurile sunt: f(3) = 3 + f(2) = 3 + (2 + f(1)) = 3 + 2 + (1 + f(0)) = 3 + 2 + 1 + 0 = 6.\", \"explanations\": [\"Incorrect. Suma numerelor este mai mare dec\\u00e2t 3.\", \"Corect! f(3) returneaz\\u0103 suma primelor 3 numere pozitive, adic\\u0103 6.\", \"Incorrect. Cazul de baz\\u0103 este 0, dar stiva adun\\u0103 valorile intermediare.\", \"Incorrect. R\\u0103spunsul este o valoare numeric\\u0103 evaluat\\u0103.\"]}"
+        }
+      ]
+    },
+    {
+      "id": "cpp_lesson_6",
+      "title": "Metode de Programare (Greedy, Divide et Impera, Backtracking)",
+      "description": "Descoperă principalele tehnici de programare folosite în olimpiade şi bacalaureat: Greedy, Divide et Impera şi Backtracking.",
+      "type": "mixed",
+      "initial_code": "#include <iostream>\nusing namespace std;\n\n// Scrie funcția de căutare binară aici\n\nint main() {\n    // Scrie citirea și apelul aici\n    return 0;\n}",
+      "solution_code": "#include <iostream>\nusing namespace std;\n\nint cautare_binara(int v[], int st, int dr, int x) {\n    while (st <= dr) {\n        int mij = st + (dr - st) / 2;\n        if (v[mij] == x) return mij;\n        if (v[mij] < x) st = mij + 1;\n        else dr = mij - 1;\n    }\n    return -1;\n}\n\nint main() {\n    int n, x;\n    if (!(cin >> n >> x)) return 0;\n    int v[1000];\n    for (int i = 0; i < n; i++) {\n        cin >> v[i];\n    }\n    cout << cautare_binara(v, 0, n - 1, x) << endl;\n    return 0;\n}",
+      "memory_limit_mb": 64,
+      "time_limit_ms": 1000,
+      "tests": [
+        {
+          "input": "5 7\n1 3 5 7 9",
+          "expected_output": "3",
+          "is_hidden": false
+        },
+        {
+          "input": "4 2\n1 3 5 7",
+          "expected_output": "-1",
+          "is_hidden": false
+        },
+        {
+          "input": "1 10\n10",
+          "expected_output": "0",
+          "is_hidden": false
+        },
+        {
+          "input": "6 9\n2 4 6 8 9 12",
+          "expected_output": "4",
+          "is_hidden": true
+        },
+        {
+          "input": "5 1\n2 3 4 5 6",
+          "expected_output": "-1",
+          "is_hidden": true
+        }
+      ],
+      "files": [],
+      "content_blocks": [
+        {
+          "type": "heading",
+          "content": "6. Metode de Programare"
+        },
+        {
+          "type": "text",
+          "content": "În informatică, rezolvarea eficientă a problemelor se bazează pe paradigme de design algoritmic standard.\n\n### Tehnici fundamentale:\n1. **Greedy**: La fiecare pas se face alegerea locală optimă, sperând să se ajungă la optimul global. Este foarte rapidă ($O(N \\log N)$), dar nu funcționează pe toate problemele.\n2. **Divide et Impera**: Împărțirea problemei în subprobleme mai simple, rezolvarea lor recursivă și combinarea rezultatelor. Exemple: Căutarea Binară, Merge Sort, Quick Sort.\n3. **Backtracking**: Căutarea sistematică a tuturor soluțiilor posibile prin construirea lor pas cu pas. Dacă un pas nu duce la o soluție validă, se revine la starea anterioară (backtrack). Se folosește pentru permutări, combinări, labirinturi.\n\nÎn exercițiul de astăzi, vom implementa Căutarea Binară folosind tehnica Divide et Impera pentru a găsi indexul unui element într-un vector ordonat."
+        },
+        {
+          "type": "quiz",
+          "content": "{\"question\": \"Care metod\\u0103 de programare garanteaz\\u0103 g\\u0103sirea tuturor solu\\u021biilor posibile prin explorarea unui spa\\u021biu de st\\u0103ri \\u0219i \\u00eentoarcerea din drum \\u00een caz de e\\u0219ec?\", \"options\": [\"Greedy\", \"Backtracking\", \"Divide et Impera\", \"Programare Dinamic\\u0103\"], \"correctIndex\": 1, \"isMultipleChoice\": false, \"correctIndices\": [1], \"explanation\": \"Backtracking exploreaz\\u0103 recursiv posibilit\\u0103\\u021bile \\u0219i se \\u00eentoarce (backtrack) c\\u00e2nd condi\\u021biile de validare nu sunt \\u00eendeplinite.\", \"explanations\": [\"Incorrect. Greedy face o singur\\u0103 alegere la fiecare pas, f\\u0103r\\u0103 a se mai \\u00eentoarce.\", \"Corect! Backtracking este tehnica standard de generare exhaustiv\\u0103 cu revenire.\", \"Incorrect. Divide et Impera \\u00eemparte problema \\u00een subprobleme, f\\u0103r\\u0103 a presupune reveniri pe st\\u0103ri gre\\u0219ite.\", \"Incorrect. Programarea Dinamic\\u0103 optimizeaz\\u0103 rezolvarea prin memorarea subproblemelor suprapuse.\"]}"
+        },
+        {
+          "type": "quiz",
+          "content": "{\"question\": \"Ce condi\\u021bie obligatorie trebuie s\\u0103 \\u00eendeplineasc\\u0103 un vector pentru a putea aplica algoritmul de C\\u0103utare Binar\\u0103?\", \"options\": [\"S\\u0103 nu aib\\u0103 duplicate\", \"S\\u0103 fie ordonat (sortat)\", \"S\\u0103 aib\\u0103 doar numere pozitive\", \"S\\u0103 aib\\u0103 dimensiune par\\u0103\"], \"correctIndex\": 1, \"isMultipleChoice\": false, \"correctIndices\": [1], \"explanation\": \"C\\u0103utarea binar\\u0103 compar\\u0103 elementul din mijloc \\u0219i elimin\\u0103 jum\\u0103tate din spa\\u021biul de c\\u0103utare. Acest lucru func\\u021bioneaz\\u0103 doar dac\\u0103 elementele sunt ordonate.\", \"explanations\": [\"Incorrect. C\\u0103utarea binar\\u0103 func\\u021bioneaz\\u0103 \\u0219i cu elemente duplicat.\", \"Corect! Sortarea vectorului este o condi\\u021bie absolut necesar\\u0103.\", \"Incorrect. Valoarea numerelor nu conteaz\\u0103 at\\u00e2t timp c\\u00e2t pot fi comparate.\", \"Incorrect. Func\\u021bioneaz\\u0103 excelent pe vectori de orice lungime.\"]}"
+        },
+        {
+          "type": "quiz",
+          "content": "{\"question\": \"Ce complexitate de timp are algoritmul de C\\u0103utare Binar\\u0103 pe un vector de dimensiune N?\", \"options\": [\"O(N)\", \"O(N log N)\", \"O(log N)\", \"O(1)\"], \"correctIndex\": 2, \"isMultipleChoice\": false, \"correctIndices\": [2], \"explanation\": \"Deoarece la fiecare pas \\u00eemp\\u0103r\\u021bim intervalul de c\\u0103utare \\u00een jum\\u0103tate, num\\u0103rul maxim de pa\\u0219i este logaritmic: O(log N).\", \"explanations\": [\"Incorrect. O(N) este complexitatea c\\u0103ut\\u0103rii liniare.\", \"Incorrect. O(N log N) este complexitatea sort\\u0103rii rapide.\", \"Corect! \\u00cemp\\u0103r\\u021birea repetat\\u0103 la 2 ofer\\u0103 complexitate logaritmic\\u0103 O(log N).\", \"Incorrect. O(1) este accesarea direct\\u0103, nu c\\u0103utarea.\"]}"
+        }
+      ]
+    },
+    {
+      "id": "cpp_lesson_7",
+      "title": "Teoria Grafurilor (Neorientate, Orientate şi Arbori)",
+      "description": "Înțelege conceptele fundamentale ale grafurilor, arborilor şi aplică algoritmi precum parcurgeri BFS/DFS.",
+      "type": "mixed",
+      "initial_code": "#include <iostream>\nusing namespace std;\n\n// Scrie algoritmul de parcurgere DFS aici\n\nint main() {\n    // Citire graf neorientat și apel DFS\n    return 0;\n}",
+      "solution_code": "#include <iostream>\nusing namespace std;\n\nint n, m;\nint adj[101][101];\nbool viz[101];\n\nvoid dfs(int nod) {\n    cout << nod << \" \";\n    viz[nod] = true;\n    for (int i = 1; i <= n; i++) {\n        if (adj[nod][i] == 1 && !viz[i]) {\n            dfs(i);\n        }\n    }\n}\n\nint main() {\n    if (!(cin >> n >> m)) return 0;\n    for (int i = 0; i < m; i++) {\n        int u, v;\n        cin >> u >> v;\n        adj[u][v] = 1;\n        adj[v][u] = 1;\n    }\n    dfs(1);\n    cout << endl;\n    return 0;\n}",
+      "memory_limit_mb": 128,
+      "time_limit_ms": 1000,
+      "tests": [
+        {
+          "input": "4 3\n1 2\n2 3\n3 4",
+          "expected_output": "1 2 3 4 ",
+          "is_hidden": false
+        },
+        {
+          "input": "3 2\n1 2\n1 3",
+          "expected_output": "1 2 3 ",
+          "is_hidden": false
+        },
+        {
+          "input": "5 4\n1 4\n4 2\n1 3\n3 5",
+          "expected_output": "1 3 5 4 2 ",
+          "is_hidden": false
+        },
+        {
+          "input": "4 4\n1 2\n2 3\n3 4\n4 1",
+          "expected_output": "1 2 3 4 ",
+          "is_hidden": true
+        },
+        {
+          "input": "6 5\n1 2\n1 5\n2 3\n2 4\n5 6",
+          "expected_output": "1 2 3 4 5 6 ",
+          "is_hidden": true
+        }
+      ],
+      "files": [],
+      "content_blocks": [
+        {
+          "type": "heading",
+          "content": "7. Teoria Grafurilor şi Arbori"
+        },
+        {
+          "type": "text",
+          "content": "Un graf este o structură de date formată dintr-o mulțime de noduri (vârfuri) $V$ și o mulțime de arce sau muchii $E$ care le conectează.\n\n### Concepte Cheie:\n- **Grafuri Neorientate**: Muchiile nu au direcție. Relația este bidirecțională.\n- **Grafuri Orientate**: Arcele au o direcție specifică (de la sursă la destinație).\n- **Arbore**: Un graf neorientat, conex și acyclic. Are exact $N-1$ muchii.\n- **Arbore Binar de Căutare (BST)**: Arbore în care fiecare nod are maxim doi fii, iar subarborele stâng conține valori mai mici, pe când cel drept conține valori mai mari.\n\n### Metode de Parcurgere:\n- **DFS (Depth-First Search)**: Parcurgerea în adâncime, folosește recursivitatea (sau o stivă).\n- **BFS (Breadth-First Search)**: Parcurgerea în lățime, folosește o coadă.\n\nÎn exercițiul de astăzi, vom implementa parcurgerea DFS pe un graf neorientat pornind de la nodul 1."
+        },
+        {
+          "type": "quiz",
+          "content": "{\"question\": \"C\\u00e2te muchii are un arbore cu N noduri?\", \"options\": [\"N\", \"N - 1\", \"N + 1\", \"N * (N - 1) / 2\"], \"correctIndex\": 1, \"isMultipleChoice\": false, \"correctIndices\": [1], \"explanation\": \"Prin defini\\u021bie, un arbore este un graf conex \\u0219i aciclic, av\\u00e2nd proprietatea matematic\\u0103 fundamental\\u0103 c\\u0103 are exact N - 1 muchii.\", \"explanations\": [\"Incorrect. Un graf conex cu N noduri \\u0219i N muchii con\\u021bine exact un ciclu.\", \"Corect! Un arbore are \\u00eentotdeauna N - 1 muchii.\", \"Incorrect. Un arbore nu are mai multe muchii dec\\u00e2t noduri.\", \"Incorrect. N * (N - 1) / 2 reprezint\\u0103 num\\u0103rul maxim de muchii \\u00eentr-un graf neorientat complet.\"]}"
+        },
+        {
+          "type": "quiz",
+          "content": "{\"question\": \"Ce parcurgere a unui Arbore Binar de C\\u0103utare (BST) viziteaz\\u0103 nodurile \\u00een ordine strict cresc\\u0103toare?\", \"options\": [\"Preordine (Preorder)\", \"Inordine (Inorder)\", \"Postordine (Postorder)\", \"BFS (pe niveluri)\"], \"correctIndex\": 1, \"isMultipleChoice\": false, \"correctIndices\": [1], \"explanation\": \"Parcurgerea \\u00een Inordine (St\\u00e2ng, R\\u0103d\\u0103cin\\u0103, Drept) pe un BST viziteaz\\u0103 \\u00eentotdeauna valorile \\u00een ordine sortat\\u0103 cresc\\u0103toare.\", \"explanations\": [\"Incorrect. Preordinea viziteaz\\u0103 r\\u0103d\\u0103cina, apoi fiul st\\u00e2ng \\u0219i cel drept.\", \"Corect! Parcurgerea \\u00een Inordine garanteaz\\u0103 ordinea sortat\\u0103 \\u00een BST.\", \"Incorrect. Postordinea viziteaz\\u0103 fiii \\u0219i abia apoi r\\u0103d\\u0103cina.\", \"Incorrect. BFS viziteaz\\u0103 nodurile nivel cu nivel, nu \\u00een ordine cresc\\u0103toare a valorilor.\"]}"
+        },
+        {
+          "type": "quiz",
+          "content": "{\"question\": \"Ce structur\\u0103 de date este utilizat\\u0103 \\u00een mod ideal pentru a implementa parcurgerea \\u00een l\\u0103\\u021bime (BFS) a unui graf?\", \"options\": [\"Stiv\\u0103 (Stack)\", \"Coad\\u0103 (Queue)\", \"Matrice\", \"List\\u0103 dublu \\u00eenl\\u0103n\\u021buit\\u0103\"], \"correctIndex\": 1, \"isMultipleChoice\": false, \"correctIndices\": [1], \"explanation\": \"BFS exploreaz\\u0103 nodurile vecine pe niveluri. O coad\\u0103 (FIFO - First In, First Out) este ideal\\u0103 pentru a \\u021bine eviden\\u021ba nodurilor descoperite ce urmeaz\\u0103 a fi vizitate.\", \"explanations\": [\"Incorrect. Stiva este utilizat\\u0103 pentru parcurgerea DFS (LIFO).\", \"Corect! Coada este structura de date fundamental\\u0103 pentru BFS.\", \"Incorrect. Matricea de adiacen\\u021b\\u0103 reprezint\\u0103 graful, nu determin\\u0103 algoritmul de parcurgere.\", \"Incorrect. O list\\u0103 poate fi folosit\\u0103, dar coada descrie comportamentul logic direct.\"]}"
+        }
+      ]
+    }
+  ]
 }
